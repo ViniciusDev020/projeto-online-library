@@ -12,7 +12,7 @@ export default function page() {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
   />;
   const router = useRouter();
-  const token = document.cookie.replace("token=", "");
+  const token = document?.cookie.replace("token=", "");
 
   function handleLogout() {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -23,7 +23,7 @@ export default function page() {
     router.push("/login");
   }
   return (
-    <body style={{backgroundColor: "indigo"}}>
+    <body>
       <div>
         <button className="btn btn-link" onClick={handleLogout}>
           Logout

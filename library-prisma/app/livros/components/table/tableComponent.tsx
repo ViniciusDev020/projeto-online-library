@@ -8,6 +8,7 @@ import { deletarLivro } from "../../../api/routes";
 import CreateForm from "../forms/create/form-create";
 import EditForm from "../forms/edit/form-edit";
 import truncateString from "../formatters/truncate"
+import NavigationBar from "../navigationBar/NavigationBar";
 
 export const TableComponent = () => {
   const books = responseObject;
@@ -28,6 +29,11 @@ export const TableComponent = () => {
     setId(id);
   }
 
+  function handleLogout() {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    router.refresh();
+  }
+
   useEffect(() => {
     deleteBook();
   });
@@ -40,15 +46,13 @@ export const TableComponent = () => {
 
   return (
     <div className="container">
-      <h1 className="text-3xl font-0 underline text-center text-white">
-        Biblioteca de Livros
-      </h1>
-
+      <NavigationBar
+      onClick={handleLogout}
+      />
       <div className="">
         <CreateForm className="modal-body" />
       </div>
-
-      <table className="table table-dark table-striped">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Id</th>
@@ -71,6 +75,7 @@ export const TableComponent = () => {
                 >
                 <DeleteButton
                   id="delete"
+                  className="btn btn-light"
                   onClick={() => {
                     handleClick(book.id);
                   }}

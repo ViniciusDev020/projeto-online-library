@@ -17,39 +17,41 @@ function CreateForm(props) {
     setOpenModal(true);
   };
 
-  const validation = () =>{
+  const validation = () => {
     const name = document.getElementById("name") as HTMLInputElement;
     const desc = document.getElementById("desc") as HTMLInputElement;
 
-    if(desc.value.length > 10 && name.value.length > 5){
-      setValidate(true)
+    if (desc.value.length > 10 && name.value.length > 5) {
+      setValidate(true);
     }
-  }
+  };
 
   function handleSubmit() {
     const name = document.getElementById("name") as HTMLInputElement;
     const desc = document.getElementById("desc") as HTMLInputElement;
     const token = document.cookie.replace("token=", "");
 
-    validation()
+    validation();
 
-    if(validated){
+    if (validated) {
       const newBook: Book = {
         name: name.value,
         description: desc.value,
       };
-  
+
       criarLivro(newBook, token);
-    } else{
-      alert("erro") // criar modal
+    } else {
+      alert("erro"); // criar modal
     }
   }
 
   return (
     <>
-      <CreateButton 
-      onClick={handleOpen}
+      <CreateButton
+        onClick={handleOpen}
+        className="btn btn-light mt-[10px] mt-4 "
       >
+        Novo Livro
       </CreateButton>
       <Modal show={openModal} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -59,20 +61,20 @@ function CreateForm(props) {
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>Nome</Form.Label>
-              <Form.Control 
-              type="text" 
-              placeholder="" 
-              name="name" 
-              id="name" 
-              onInput={(e)=>{
-                let message = document.getElementById("message");
-                if(e.currentTarget.value.length < 10 && message){
-                  message.innerHTML = "O nome deve possuir pelo menos 5 caracteres"
-                } 
-                else if(message){
-                  message.innerHTML = ""
-                }
-              }}
+              <Form.Control
+                type="text"
+                placeholder=""
+                name="name"
+                id="name"
+                onInput={(e) => {
+                  let message = document.getElementById("message");
+                  if (e.currentTarget.value.length < 10 && message) {
+                    message.innerHTML =
+                      "O nome deve possuir pelo menos 5 caracteres";
+                  } else if (message) {
+                    message.innerHTML = "";
+                  }
+                }}
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -82,13 +84,13 @@ function CreateForm(props) {
                 placeholder=""
                 name="description"
                 id="desc"
-                onInput={(e)=>{
+                onInput={(e) => {
                   let message = document.getElementById("message");
-                  if(e.currentTarget.value.length < 10 && message){
-                    message.innerHTML = "A descrição deve possuir pelo menos 10 caracteres"
-                  } 
-                  else if(message){
-                    message.innerHTML = ""
+                  if (e.currentTarget.value.length < 10 && message) {
+                    message.innerHTML =
+                      "A descrição deve possuir pelo menos 10 caracteres";
+                  } else if (message) {
+                    message.innerHTML = "";
                   }
                 }}
               />

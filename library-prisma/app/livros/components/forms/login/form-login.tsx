@@ -37,87 +37,78 @@ function LoginForm(props) {
 
   return (
     <>
-      <body
+      <div
         style={{
-          backgroundRepeat: "no-repeat",
-          backdropFilter: "blur(1px)",
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          width: "100%",
+          height: "100vh",
+          justifyItems: "center",
+          paddingTop: "50px",
         }}
       >
-        <div
-          style={{
-            width: "100%",
-            height: "100vh",
-            justifyItems: "center",
-            paddingTop: "50px",
-          }}
-        >
-          <div style={{ width: "400px", marginLeft: "30px", color: "white" }}>
-            <h2>Realizar Login</h2>
-            <Form className="">
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder=""
-                  name="email"
-                  id="email"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Senha</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder=""
-                  name="password"
-                  id="password"
-                />
-              </Form.Group>
-            </Form>
-            <Button
-              variant="secondary"
-              style={{ marginRight: "10px" }}
-              onClick={handleClose}
+        <div style={{ width: "400px", marginLeft: "600px", color: "black" }}>
+          <h2>Realizar Login</h2>
+          <Form className="">
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder=""
+                name="email"
+                id="email"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Senha</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder=""
+                name="password"
+                id="password"
+              />
+            </Form.Group>
+          </Form>
+          <Button
+            variant="secondary"
+            style={{ marginRight: "10px" }}
+            onClick={handleClose}
+          >
+            Cadastre-se
+          </Button>
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
+            Login
+          </Button>
+          <div>
+            <dialog
+              open={openWarningModal}
+              style={{
+                width: "400px",
+                height: "40px",
+                backgroundColor: "lightyellow",
+                border: "none",
+                marginTop: "10px",
+                padding: "5px",
+              }}
             >
-              Cadastre-se
-            </Button>
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
-              Login
-            </Button>
-            <div>
-              <dialog
-                open={openWarningModal}
+              <span
+                id="errorMessage"
                 style={{
-                  width: "400px",
-                  height: "40px",
-                  backgroundColor: "lightyellow",
-                  border: "none",
-                  marginTop: "10px",
-                  padding: "5px",
+                  color: "red",
+                  display: "inline-block",
+                  marginRight: "193px",
+                }}
+              ></span>
+              <button
+                style={{ fontSize: "12px", border: "none" }}
+                onClick={() => {
+                  setOpenWarningModal(false);
                 }}
               >
-                <span
-                  id="errorMessage"
-                  style={{
-                    color: "red",
-                    display: "inline-block",
-                    marginRight: "193px",
-                  }}
-                ></span>
-                <button
-                  style={{ fontSize: "12px", border: "none" }}
-                  onClick={() => {
-                    setOpenWarningModal(false);
-                  }}
-                >
-                  X
-                </button>
-              </dialog>
-            </div>
+                X
+              </button>
+            </dialog>
           </div>
         </div>
-      </body>
+      </div>
     </>
   );
 }
