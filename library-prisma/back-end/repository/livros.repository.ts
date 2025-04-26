@@ -4,11 +4,18 @@ import { randomUUID } from "crypto";
 const prisma = new PrismaClient();
 
 export async function listarLivros() {
-  return prisma.livro.findMany();
+  return prisma.livro.findMany({
+    select:{
+      id: true,
+      name: true,
+      description: true
+    }
+  });
 }
 
 type livro = {
   id?: string;
+
   name: string;
   description: string;
 };

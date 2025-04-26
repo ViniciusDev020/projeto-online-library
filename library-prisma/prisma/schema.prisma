@@ -8,14 +8,21 @@ datasource db {
 }
 
 model User {
-  id       String  @db.VarChar(36)  @id @default(uuid())
-  email    String   @unique
+  id       String  @id @default(uuid()) @db.VarChar(36)
+  email    String  @unique
   name     String
   password String?
 }
 
 model Livro {
-  id            String  @db.VarChar(36)  @id @default(uuid())
-  name          String
-  description   String
+  id          String   @id @default(uuid()) @db.VarChar(36)
+  name        String
+  description String
+  author      Author[]
+}
+
+model Author {
+  id    String  @id @default(uuid()) @db.VarChar(36)
+  name  String
+  books Livro[]
 }

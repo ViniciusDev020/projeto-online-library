@@ -3,15 +3,8 @@ import {
   deletarLivro,
   criarNovoLivro,
   editarLivro,
-  login,
 } from "../api/routes/index";
 import { Book } from "../types/tipoLivro";
-
-// export async function loginUsuario() {
-//   const res = await login("joao@outlook.com", "123456");
-
-//   return res;
-// }
 
 export async function listBooks() {
   const books = await listarLivros();

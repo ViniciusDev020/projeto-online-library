@@ -2,7 +2,7 @@
 
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { TableComponent } from "./tableComponent";
+import { TableComponent } from "./components/table/tableComponent";
 import { useRouter } from "next/navigation";
 
 export default function page() {
@@ -23,9 +23,9 @@ export default function page() {
     router.push("/login");
   }
   return (
-    <body>
+    <body style={{backgroundColor: "indigo"}}>
       <div>
-        <button type="button" onClick={handleLogout}>
+        <button className="btn btn-link" onClick={handleLogout}>
           Logout
         </button>
         <TableComponent />

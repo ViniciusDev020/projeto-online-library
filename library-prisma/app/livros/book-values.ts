@@ -1,4 +1,4 @@
-import listarLivros, { login } from "../api/routes";
+import listarLivros from "../api/routes";
 
 const token = document?.cookie.replace("token=", "");
 

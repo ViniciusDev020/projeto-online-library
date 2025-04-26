@@ -2,44 +2,6 @@ import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "crypto";
 const prisma = new PrismaClient();
 async function main() {
-  const alice = await prisma.user.upsert({
-    where: { email: "alice@prisma.io" },
-    update: {},
-    create: {
-      email: "alice@prisma.io",
-      name: "Alice",
-      posts: {
-        create: {
-          title: "Check out Prisma with Next.js",
-          content: "https://www.prisma.io/nextjs",
-          published: true,
-        },
-      },
-    },
-  });
-  const bob = await prisma.user.upsert({
-    where: { email: "bob@prisma.io" },
-    update: {},
-    create: {
-      email: "bob@prisma.io",
-      name: "Bob",
-      posts: {
-        create: [
-          {
-            title: "Follow Prisma on Twitter",
-            content: "https://twitter.com/prisma",
-            published: true,
-          },
-          {
-            title: "Follow Nexus on Twitter",
-            content: "https://twitter.com/nexusgql",
-            published: true,
-          },
-        ],
-      },
-    },
-  });
-
   const livroHistoria = await prisma.livro.upsert({
     where: { id: randomUUID() },
     update: {},
@@ -50,6 +12,17 @@ async function main() {
     },
   });
   console.log({ livroHistoria });
+
+  const autor = await prisma.author.upsert({
+    where: { id: randomUUID() },
+    update: {},
+    create: {
+      id: randomUUID(),
+      name: "Pedro Lopez",
+    },
+  })
+
+  console.log({ autor });
 }
 main()
   .then(async () => {
