@@ -1,4 +1,4 @@
-import { Book } from "../../types/tipoLivro";
+import { Book, BookUpdate } from "../../types/tipoLivro";
 
 export async function listarLivros(token?: string) {
   const req = await fetch("http://localhost:3001/livrosCadastrados", {
@@ -20,13 +20,9 @@ export async function deletarLivro(id: string, token?: string) {
       Authorization: "Bearer " + token,
     },
   });
-
-  const res = await req.json();
-
-  return res;
 }
 
-export async function editarLivro(book: Book, token?: string) {
+export async function editarLivro(book: BookUpdate, token?: string) {
   const req = await fetch(
     `http://localhost:3001/livrosCadastrados/${book.id}`,
     {
@@ -38,10 +34,6 @@ export async function editarLivro(book: Book, token?: string) {
       },
     }
   );
-
-  const res = await req.json();
-
-  return res;
 }
 
 export async function criarNovoLivro(book: Book, token?: string) {
@@ -53,10 +45,6 @@ export async function criarNovoLivro(book: Book, token?: string) {
       "Content-Type": "application/json",
     },
   });
-
-  const res = await req.json();
-
-  return res;
 }
 
 export async function login(email: string, password: string) {

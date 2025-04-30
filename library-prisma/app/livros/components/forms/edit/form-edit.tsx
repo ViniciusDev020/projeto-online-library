@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Book } from "../../../../types/tipoLivro";
-import { FaRegEdit } from "react-icons/fa";
 import { editarLivro } from "../../../../api/routes";
 import { EditButton } from "../../buttons/buttons";
+import Cookies from "js-cookie";
+import { BookUpdate } from "../../../../types/tipoLivro";
 
 function EditForm(props) {
   const { id } = props;
+  const { refetch } = props;
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
@@ -17,12 +18,12 @@ function EditForm(props) {
     setOpenModal(true);
   };
 
-  function handleSubmit(method) {
+  function handleSubmit() {
     const name = document.getElementById("name") as HTMLInputElement;
     const desc = document.getElementById("desc") as HTMLInputElement;
-    const token = document.cookie.replace("token=", "");
+    const token = Cookies.get("token");
 
-    const newBook: Book = {
+    const newBook: BookUpdate = {
       id: id,
       name: name.value,
       description: desc.value,
@@ -33,6 +34,7 @@ function EditForm(props) {
     );
 
     editarLivro(objectWithoutEmptyProperties, token);
+    refetch();
   }
 
   return (
@@ -63,7 +65,14 @@ function EditForm(props) {
           <Button variant="secondary" onClick={handleClose}>
             Fechar
           </Button>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => {
+              handleSubmit();
+              refetch();
+            }}
+          >
             Editar Livro
           </Button>
         </Modal.Footer>

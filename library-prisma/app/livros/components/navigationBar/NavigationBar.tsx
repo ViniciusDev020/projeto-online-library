@@ -28,8 +28,8 @@ function NavigationBar(props) {
             <a className="nav-item nav-link" href="#">
               Features
             </a>
-            <a className="nav-item nav-link" href="#">
-              Pricing
+            <a className="nav-item nav-link" href="/authors">
+              Authors
             </a>
             <a className="nav-item nav-link" href="#" onClick={props.onClick}>
               Logout

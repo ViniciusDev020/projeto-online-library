@@ -1,9 +1,11 @@
 export type Book = {
   id?: string;
-  name?: string;
-  description?: string;
+  name: string;
+  description: string;
 };
 
-export type Books = {
-  books: Book[];
+export type BookUpdate = {
+  id?: string;
+  name?: string;
+  description?: string;
 };

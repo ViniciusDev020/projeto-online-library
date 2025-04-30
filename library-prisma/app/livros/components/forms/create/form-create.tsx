@@ -5,10 +5,12 @@ import Form from "react-bootstrap/Form";
 import { criarLivro } from "../../../fetch";
 import { Book } from "../../../../types/tipoLivro";
 import { CreateButton } from "../../buttons/buttons";
+import Cookies from "js-cookie";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
   const [validated, setValidate] = useState(false);
+  const { refetch } = props;
 
   const handleClose = () => {
     setOpenModal(false);
@@ -21,36 +23,32 @@ function CreateForm(props) {
     const name = document.getElementById("name") as HTMLInputElement;
     const desc = document.getElementById("desc") as HTMLInputElement;
 
-    if (desc.value.length > 10 && name.value.length > 5) {
+    if (desc.value.length >= 10 && name.value.length >= 10) {
       setValidate(true);
+    } else {
+      setValidate(false);
     }
   };
 
   function handleSubmit() {
     const name = document.getElementById("name") as HTMLInputElement;
     const desc = document.getElementById("desc") as HTMLInputElement;
-    const token = document.cookie.replace("token=", "");
+    const token = Cookies.get("token");
 
-    validation();
+    const newBook: Book = {
+      name: name?.value,
+      description: desc?.value,
+    };
 
-    if (validated) {
-      const newBook: Book = {
-        name: name.value,
-        description: desc.value,
-      };
-
-      criarLivro(newBook, token);
-    } else {
-      alert("erro"); // criar modal
-    }
+    if (validated) criarLivro(newBook, token);
+    refetch();
   }
+
+  let disableInput = validated == false ? true : false;
 
   return (
     <>
-      <CreateButton
-        onClick={handleOpen}
-        className="btn btn-light mt-[10px] mt-4 "
-      >
+      <CreateButton onClick={handleOpen} className="btn btn-light">
         Novo Livro
       </CreateButton>
       <Modal show={openModal} onHide={handleClose}>
@@ -66,7 +64,9 @@ function CreateForm(props) {
                 placeholder=""
                 name="name"
                 id="name"
+                required={true}
                 onInput={(e) => {
+                  validation();
                   let message = document.getElementById("message");
                   if (e.currentTarget.value.length < 10 && message) {
                     message.innerHTML =
@@ -83,8 +83,10 @@ function CreateForm(props) {
                 type="text"
                 placeholder=""
                 name="description"
+                required={true}
                 id="desc"
                 onInput={(e) => {
+                  validation();
                   let message = document.getElementById("message");
                   if (e.currentTarget.value.length < 10 && message) {
                     message.innerHTML =
@@ -102,7 +104,15 @@ function CreateForm(props) {
           <Button variant="secondary" onClick={handleClose}>
             Fechar
           </Button>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={disableInput}
+            onClick={() => {
+              handleSubmit();
+              refetch();
+            }}
+          >
             Criar Livro
           </Button>
         </Modal.Footer>
