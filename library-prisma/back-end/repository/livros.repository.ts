@@ -5,17 +5,24 @@ const prisma = new PrismaClient();
 
 export async function listarLivros() {
   return prisma.livro.findMany({
-    select:{
+    select: {
       id: true,
       name: true,
-      description: true
-    }
+      description: true,
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
 }
 
 type livro = {
   id?: string;
-
+  author?: {
+    nome: string;
+  };
   name: string;
   description: string;
 };
