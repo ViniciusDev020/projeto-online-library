@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DeleteButton from "../buttons/buttons";
-import useDataFetch from "../../data-fetch";
-import { deletarLivro } from "../../../api/routes";
+import useFetchBooks from "../../hooks/fetch-books";
+import { deletarLivro } from "../../../api/routes/livros";
 import CreateForm from "../forms/create/form-create";
 import EditForm from "../forms/edit/form-edit";
 import truncateString from "../formatters/truncate";
@@ -12,9 +12,13 @@ import { LoadingComponent } from "../loading/LoadingComponent";
 import { Book } from "../../../types/tipoLivro";
 
 import Cookies from "js-cookie";
+import { Button } from "react-bootstrap";
+import { FaFilter } from "react-icons/fa";
 
-export const TableComponent = () => {
-  const { data: books, refetch } = useDataFetch();
+export const TableComponent = (props) => {
+  const [searchParams, setSearchParams] = useState("");
+
+  const { data: books, refetch } = useFetchBooks(searchParams);
   const token = Cookies.get("token");
   const router = useRouter();
 
@@ -30,7 +34,13 @@ export const TableComponent = () => {
     router.refresh();
   }
 
+  const { className } = props;
+
   const dataToMap: Book[] = books == null ? [] : books;
+
+  useEffect(() => {
+    refetch();
+  }, [searchParams]);
 
   <link
     rel="stylesheet"
@@ -40,16 +50,31 @@ export const TableComponent = () => {
 
   return (
     <div className="container">
-      <NavigationBar onClick={handleLogout} />
+      <NavigationBar onClick={handleLogout} className={className.header} />
 
-      <div className="btn-group mt-4 gap-2">
-        <input type="search" placeholder="Pesquisar"></input>
-        <CreateForm className="modal-body" refetch={refetch} />
+      <div className="btn-group mt-4 gap-2" style={{ marginBottom: "20px" }}>
+        <input
+          type="search"
+          placeholder="Pesquisar"
+          onInput={(e) => {
+            setSearchParams(e.currentTarget.value);
+          }}
+        ></input>
+        <CreateForm
+          className={{
+            modal: className.modals,
+            buttons: className.buttons,
+          }}
+          refetch={refetch}
+        />
+        <Button className={className.buttons}>
+          Filtrar <FaFilter></FaFilter>
+        </Button>
       </div>
-      <table className="table table-striped">
+      <table className={className.table}>
         <thead>
           <tr>
-            <th>Id</th>
+            <th>Autor</th>
             <th>Nome</th>
             <th>Descrição</th>
           </tr>
@@ -58,14 +83,11 @@ export const TableComponent = () => {
           {dataToMap?.map((book, index) => {
             return (
               <tr key={index}>
-                <td>{book.id}</td>
+                <td>{book.author.name}</td>
                 <td>{book.name}</td>
                 <td>
-                  <div
-                    className="d-inline-block bg-primary"
-                    style={{ width: "100px" }}
-                  >
-                    {truncateString(book.description, 10)}
+                  <div className="d-inline-block" style={{ width: "115px" }}>
+                    {truncateString(book.description, 14)}
                   </div>
                   <div
                     className="btn-group gap-2"
@@ -77,12 +99,19 @@ export const TableComponent = () => {
                   >
                     <DeleteButton
                       id="delete"
-                      className="btn btn-light"
+                      className={className.buttons}
                       onClick={() => {
                         deleteBook(book?.id);
                       }}
                     />
-                    <EditForm id={book.id} refetch={refetch} />
+                    <EditForm
+                      id={book.id}
+                      refetch={refetch}
+                      className={{
+                        modals: className.modals,
+                        buttons: className.buttons,
+                      }}
+                    />
                   </div>
                 </td>
               </tr>

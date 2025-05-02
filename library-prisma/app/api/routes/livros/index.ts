@@ -1,12 +1,18 @@
-import { Book, BookUpdate } from "../../types/tipoLivro";
+import { Book, BookUpdate } from "../../../types/tipoLivro";
 
-export async function listarLivros(token?: string) {
-  const req = await fetch("http://localhost:3001/livrosCadastrados", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
+export async function listarLivros(token?: string, searchParams?: string) {
+  if (!searchParams) {
+    searchParams = "";
+  }
+  const req = await fetch(
+    `http://localhost:3001/livrosCadastrados?search=${searchParams}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
 
   const res = await req.json();
 

@@ -3,7 +3,7 @@ import {
   deletarLivro,
   criarNovoLivro,
   editarLivro,
-} from "../api/routes/index";
+} from "../api/routes/livros/index";
 import { Book } from "../types/tipoLivro";
 
 export async function listBooks() {

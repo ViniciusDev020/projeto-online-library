@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { editarLivro } from "../../../../api/routes";
+import { editarLivro } from "../../../../api/routes/livros";
 import { EditButton } from "../../buttons/buttons";
 import Cookies from "js-cookie";
 import { BookUpdate } from "../../../../types/tipoLivro";
 
 function EditForm(props) {
-  const { id } = props;
+  const { id, className } = props;
   const { refetch } = props;
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
@@ -36,11 +36,14 @@ function EditForm(props) {
     editarLivro(objectWithoutEmptyProperties, token);
     refetch();
   }
-
   return (
     <>
-      <EditButton onClick={handleOpen} className="btn btn-light" />
-      <Modal show={openModal} onHide={handleClose}>
+      <EditButton onClick={handleOpen} className={className.buttons} />
+      <Modal
+        show={openModal}
+        onHide={handleClose}
+        contentClassName={className.modals}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Editar Livro</Modal.Title>
         </Modal.Header>

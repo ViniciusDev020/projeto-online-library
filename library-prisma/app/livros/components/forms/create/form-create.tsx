@@ -3,14 +3,19 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { criarLivro } from "../../../fetch";
-import { Book } from "../../../../types/tipoLivro";
+import { Book, BookCreate } from "../../../../types/tipoLivro";
 import { CreateButton } from "../../buttons/buttons";
 import Cookies from "js-cookie";
+import useFetchAuthors from "../../../hooks/fetch-authors";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
   const [validated, setValidate] = useState(false);
-  const { refetch } = props;
+  const [author, setAuthor] = useState();
+  const { refetch, className } = props;
+  const token = Cookies.get("token");
+
+  const handleAuthors = useFetchAuthors();
 
   const handleClose = () => {
     setOpenModal(false);
@@ -33,11 +38,13 @@ function CreateForm(props) {
   function handleSubmit() {
     const name = document.getElementById("name") as HTMLInputElement;
     const desc = document.getElementById("desc") as HTMLInputElement;
-    const token = Cookies.get("token");
+    const author = document.getElementById("author") as HTMLSelectElement;
 
-    const newBook: Book = {
+    console.log(author.selectedOptions[0].value);
+    const newBook: BookCreate = {
       name: name?.value,
       description: desc?.value,
+      authorId: author.selectedOptions[0].value,
     };
 
     if (validated) criarLivro(newBook, token);
@@ -48,10 +55,14 @@ function CreateForm(props) {
 
   return (
     <>
-      <CreateButton onClick={handleOpen} className="btn btn-light">
+      <CreateButton onClick={handleOpen} className={className.buttons}>
         Novo Livro
       </CreateButton>
-      <Modal show={openModal} onHide={handleClose}>
+      <Modal
+        show={openModal}
+        onHide={handleClose}
+        contentClassName={className.modal}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Novo Livro</Modal.Title>
         </Modal.Header>
@@ -96,6 +107,34 @@ function CreateForm(props) {
                   }
                 }}
               />
+              <span id="message"></span>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Autor</Form.Label>
+              <Form.Select
+                name="author"
+                required={true}
+                id="author"
+                onInput={(e) => {
+                  validation();
+                  let message = document.getElementById("message");
+                  if (e.currentTarget.value.length < 10 && message) {
+                    message.innerHTML =
+                      "A descrição deve possuir pelo menos 10 caracteres";
+                  } else if (message) {
+                    message.innerHTML = "";
+                  }
+                }}
+              >
+                {handleAuthors.data.map((i: any) => {
+                  if (i)
+                    return (
+                      <option value={i.id} key={i.id}>
+                        {i.name}
+                      </option>
+                    );
+                })}
+              </Form.Select>
               <span id="message"></span>
             </Form.Group>
           </Form>

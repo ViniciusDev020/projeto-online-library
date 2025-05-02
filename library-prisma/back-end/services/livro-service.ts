@@ -5,8 +5,8 @@ import listarLivros, {
   removerLivro,
 } from "../repository/livros.repository.ts";
 
-export async function listAllBooksService(req, res) {
-  const response = await listarLivros();
+export async function listAllBooksService(req, res, searchQuery) {
+  const response = await listarLivros(searchQuery);
 
   return response;
 }
@@ -14,7 +14,6 @@ export async function listAllBooksService(req, res) {
 export async function listBookByIdService(req, res) {
   const params = req.params;
   const id = params.id;
-
   const response = await livroPeloId(id);
 
   return response;
@@ -23,8 +22,6 @@ export async function listBookByIdService(req, res) {
 export async function deleteBookByIdService(req, res) {
   const params = req.params;
   const id: string = params.id;
-  console.log(id);
-
   const response = await removerLivro(id);
 
   return response;
@@ -44,15 +41,10 @@ export async function updateBookByIdService(req, res) {
   const livro = req.body;
   const livroExistente = await livroPeloId(id);
 
-  if (livro.name && livroExistente != null) {
-    livroExistente.name = livro.name;
-  }
-  if (livro.description && livroExistente != null) {
-    livroExistente.description = livro.description;
-  }
-
   if (livroExistente) {
-    const response = await editarLivro(livroExistente, id);
+    const copia = Object.assign(livroExistente, livro);
+
+    const response = await editarLivro(copia, id);
 
     response;
   }

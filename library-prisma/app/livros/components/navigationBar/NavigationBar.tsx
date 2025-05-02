@@ -2,9 +2,10 @@ import React from "react";
 import { FaBook } from "react-icons/fa";
 
 function NavigationBar(props) {
+  const { className } = props;
   return (
     <header className="bg-black w-[30px] text-white">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className={className}>
         <a className="navbar-brand" href="#">
           <FaBook className="m-2"></FaBook>
           Online Library
@@ -29,7 +30,7 @@ function NavigationBar(props) {
               Features
             </a>
             <a className="nav-item nav-link" href="/authors">
-              Authors
+              Autores
             </a>
             <a className="nav-item nav-link" href="#" onClick={props.onClick}>
               Logout

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { TableComponent } from "./components/table/tableComponent";
@@ -15,9 +15,48 @@ export default function page() {
   const router = useRouter();
   const token = Cookies.get("token");
 
+  const [tableStyle, setTableStyle] = useState("table table-white");
+  const [tableButtonsStyle, setTableButtonsStyle] = useState("btn btn-light");
+  const [headerStyle, setHeaderStyle] = useState(
+    "navbar navbar-expand-lg navbar-light bg-white"
+  );
+  const [modalsTheme, setModalsTheme] = useState("bg-light text-dark");
+
   function handleLogout() {
     Cookies.remove("token");
     router.refresh();
+  }
+
+  function handleTheme() {
+    const themeButton = document.getElementById(
+      "theme-button"
+    ) as HTMLInputElement;
+
+    const currentTheme = document.getElementById(
+      "current-theme"
+    ) as HTMLInputElement;
+
+    if (themeButton.checked) {
+      document.body.style.backgroundColor = "black";
+      document.body.style.color = "white";
+
+      currentTheme.innerText = "Dark";
+      setHeaderStyle("navbar navbar-expand-lg navbar-dark bg-black");
+      setTableStyle("table table-dark");
+      setTableButtonsStyle("btn btn-dark");
+      setModalsTheme("bg-dark text-white");
+    }
+
+    if (themeButton.checked == false) {
+      document.body.style.backgroundColor = "white";
+      document.body.style.color = "black";
+
+      currentTheme.innerText = "Light";
+      setHeaderStyle("navbar navbar-expand-lg navbar-light bg-white");
+      setTableStyle("table table-white");
+      setTableButtonsStyle("btn btn-light");
+      setModalsTheme("bg-light text-dark");
+    }
   }
 
   useEffect(() => {
@@ -27,10 +66,26 @@ export default function page() {
   });
   return (
     <div>
-      <button className="btn btn-link" onClick={handleLogout}>
-        Logout
-      </button>
-      <TableComponent />
+      <div className="form-check form-switch">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="theme-button"
+          onChange={handleTheme}
+        ></input>
+        <label className="form-check-label">
+          Change Theme: <span id="current-theme">Light</span>
+        </label>
+      </div>
+      <TableComponent
+        className={{
+          table: tableStyle,
+          header: headerStyle,
+          buttons: tableButtonsStyle,
+          modals: modalsTheme,
+        }}
+      />
     </div>
   );
 }
