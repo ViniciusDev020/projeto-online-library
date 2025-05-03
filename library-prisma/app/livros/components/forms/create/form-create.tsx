@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { criarLivro } from "../../../fetch";
-import { Book, BookCreate } from "../../../../types/tipoLivro";
-import { CreateButton } from "../../buttons/buttons";
+import { criarLivro } from "../../../../hooks/useBooks";
+import { BookCreate } from "../../../../types/tipoLivro";
+import { CreateButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
-import useFetchAuthors from "../../../hooks/fetch-authors";
+import useFetchAuthors from "../../../../hooks/useAuthors/fetch-authors";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
   const [validated, setValidate] = useState(false);
   const [author, setAuthor] = useState();
-  const { refetch, className } = props;
   const token = Cookies.get("token");
 
-  const handleAuthors = useFetchAuthors();
+  const { className } = props;
+  const { data, isLoading, refetch } = useFetchAuthors();
 
   const handleClose = () => {
     setOpenModal(false);
@@ -126,7 +126,7 @@ function CreateForm(props) {
                   }
                 }}
               >
-                {handleAuthors.data.map((i: any) => {
+                {data?.map((i: any) => {
                   if (i)
                     return (
                       <option value={i.id} key={i.id}>

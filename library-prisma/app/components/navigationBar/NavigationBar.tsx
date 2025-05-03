@@ -26,10 +26,10 @@ function NavigationBar(props) {
             <a className="nav-item nav-link active" href="#">
               Home
             </a>
-            <a className="nav-item nav-link" href="#">
-              Features
+            <a className="nav-item nav-link" href="/livros">
+              Livros
             </a>
-            <a className="nav-item nav-link" href="/authors">
+            <a className="nav-item nav-link" href="/autores">
               Autores
             </a>
             <a className="nav-item nav-link" href="#" onClick={props.onClick}>

@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
-import listarLivros from "../../api/routes/livros";
+import listarLivros from "../../api/routes/livros/index";
 import Cookies from "js-cookie";
+import { useQuery } from "@tanstack/react-query";
 
 const useFetchBooks = (searchParams?: string) => {
-  const [data, setData] = useState(null);
   const token = Cookies.get("token");
 
   const fetchData = async () => {
-    console.log("fetch data foi executado");
     const res = await listarLivros(token, searchParams);
 
-    setData(res);
+    return res;
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  return { data, refetch: fetchData };
+  const { data, error, isLoading, refetch } = useQuery({
+    queryKey: ["dadosLivros"],
+    queryFn: fetchData,
+  });
+
+  return { data, refetch, isLoading, error };
 };
 
 export default useFetchBooks;

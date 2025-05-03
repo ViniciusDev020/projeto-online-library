@@ -10,21 +10,23 @@ import truncateString from "../../../components/formatters/truncate";
 import NavigationBar from "../../../components/navigationBar/NavigationBar";
 import { LoadingComponent } from "../../../components/loading/LoadingComponent";
 import { Book } from "../../../types/tipoLivro";
-
+import useFetchAuthors from "../../../hooks/useAuthors/fetch-authors";
 import Cookies from "js-cookie";
 import { Button } from "react-bootstrap";
 import { FaFilter } from "react-icons/fa";
+import { Author } from "../../../types/tipoAutor";
+import { deletarAutor } from "../../../api/routes/autores";
 
 export const TableComponent = (props) => {
   const [searchParams, setSearchParams] = useState("");
 
-  const { data, refetch, isLoading } = useFetchBooks(searchParams);
+  const { data: books, refetch, isLoading } = useFetchAuthors();
   const token = Cookies.get("token");
   const router = useRouter();
 
-  const deleteBook = async (id?: string) => {
+  const deleteAuthor = async (id?: string) => {
     if (id) {
-      await deletarLivro(id, token);
+      await deletarAutor(id, token);
       refetch();
     }
   };
@@ -36,7 +38,7 @@ export const TableComponent = (props) => {
 
   const { className } = props;
 
-  const dataToMap: Book[] = data == null ? [] : data;
+  const dataToMap: Author[] = books == null ? [] : books;
 
   useEffect(() => {
     refetch();
@@ -74,21 +76,15 @@ export const TableComponent = (props) => {
       <table className={className.table}>
         <thead>
           <tr>
-            <th>Autor</th>
             <th>Nome</th>
-            <th>Descrição</th>
           </tr>
         </thead>
         <tbody>
-          {dataToMap?.map((book, index) => {
+          {dataToMap?.map((author, index) => {
             return (
               <tr key={index}>
-                <td>{book.author?.name}</td>
-                <td>{book.name}</td>
+                <td>{author.name}</td>
                 <td>
-                  <div className="d-inline-block" style={{ width: "115px" }}>
-                    {truncateString(book.description, 14)}
-                  </div>
                   <div
                     className="btn-group gap-2"
                     style={{
@@ -101,11 +97,11 @@ export const TableComponent = (props) => {
                       id="delete"
                       className={className.buttons}
                       onClick={() => {
-                        deleteBook(book?.id);
+                        deleteAuthor(author?.id);
                       }}
                     />
                     <EditForm
-                      id={book.id}
+                      id={author.id}
                       refetch={refetch}
                       className={{
                         modals: className.modals,

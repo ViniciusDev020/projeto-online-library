@@ -3,8 +3,8 @@ import {
   deletarLivro,
   criarNovoLivro,
   editarLivro,
-} from "../api/routes/livros/index";
-import { Book } from "../types/tipoLivro";
+} from "../../api/routes/livros/index";
+import { Book, BookUpdate } from "../../types/tipoLivro";
 
 export async function listBooks() {
   const books = await listarLivros();
@@ -18,7 +18,7 @@ export async function deleteBooks(id: string, token: string) {
   return books;
 }
 
-export async function editBooks(book: Book, token: string) {
+export async function editBooks(book: BookUpdate, token: string) {
   const books = await editarLivro(book, token);
 
   return books;

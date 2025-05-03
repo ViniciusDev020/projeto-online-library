@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react";
-import { listarAutores } from "../../api/routes/autores";
+import { listarAutores } from "../../api/routes/autores/index";
 import Cookies from "js-cookie";
+import { useQuery } from "@tanstack/react-query";
 
 const useFetchAuthors = () => {
-  const [data, setData] = useState([null]);
   const token = Cookies.get("token");
 
   const fetchData = async () => {
     console.log("fetch data foi executado");
     const res = await listarAutores(token);
 
-    setData(res);
+    return res;
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  return { data, refetch: fetchData };
+  const { data, error, isLoading, refetch } = useQuery({
+    queryKey: ["dadosAutores"],
+    queryFn: fetchData,
+  });
+
+  return { data, refetch, isLoading, error };
 };
 
 export default useFetchAuthors;
