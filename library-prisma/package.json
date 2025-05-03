@@ -43,6 +43,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "devDependencies": {
+    "@tanstack/react-query": "^5.75.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.15.3",
     "@types/react": "19.0.8",
