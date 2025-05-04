@@ -1,10 +1,10 @@
 import express from "express";
-import LivrosRouter from "../routes/livros-router.ts";
-import UsuariosRouter from "../routes/usuarios-router.ts";
-import AutoresRouter from "../routes/autores-router.ts";
+import LivrosRouter from "./routes/livros-router.ts";
+import UsuariosRouter from "./routes/usuarios-router.ts";
+import AutoresRouter from "./routes/autores-router.ts";
 import cors from "cors";
-import login from "../routes/login.ts";
-import { autenticacao } from "../middlewares/autenticacao.ts";
+import login from "./routes/login.ts";
+import { autenticacao } from "./middlewares/autenticacao.ts";
 
 const app = express();
 const port = 3001;
