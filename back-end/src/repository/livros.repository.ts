@@ -1,18 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
+import type { Livro } from "../types/livro";
 
 const prisma = new PrismaClient();
-
-export type Livro = {
-  id?: string;
-  author: {
-    id: string;
-    name: string;
-  }[];
-  authorId: string;
-  name: string;
-  description: string;
-};
 
 export async function listarLivros(searchQuery: string) {
   if (searchQuery && searchQuery != "") {
