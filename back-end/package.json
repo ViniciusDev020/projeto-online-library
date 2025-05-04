@@ -9,7 +9,8 @@
     "watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "start": "ts-node src/api/index.ts"
+    "start": "ts-node src/api/index.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "6.3.0",
