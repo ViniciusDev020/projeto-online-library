@@ -11,11 +11,10 @@ import useFetchAuthors from "../../../../hooks/useAuthors/fetch-authors";
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
   const [validated, setValidate] = useState(false);
-  const [author, setAuthor] = useState();
   const token = Cookies.get("token");
 
-  const { className } = props;
-  const { data, isLoading, refetch } = useFetchAuthors();
+  const { className, refetch } = props;
+  const { data } = useFetchAuthors();
 
   const handleClose = () => {
     setOpenModal(false);

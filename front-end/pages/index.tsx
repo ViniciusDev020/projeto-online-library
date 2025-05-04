@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useRouter } from "next/navigation";
 import { LoadingComponent } from "../app/components/loading/LoadingComponent";
@@ -12,7 +11,6 @@ export default function page() {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
   />;
   const router = useRouter();
-  const token = Cookies.get("token");
 
   useEffect(() => {
     router.push("/login");
