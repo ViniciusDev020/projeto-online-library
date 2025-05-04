@@ -13,9 +13,6 @@ const prisma = new PrismaClient({
 
 const app = express();
 const port = process.env.PORT;
-const database = process.env.DATABASE_URL;
-
-console.log("database url", database);
 
 app.use(cors());
 
