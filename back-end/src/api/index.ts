@@ -7,7 +7,7 @@ import login from "../routes/login.ts";
 import autenticacao from "../middlewares/autenticacao.ts";
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 app.use(cors());
 
