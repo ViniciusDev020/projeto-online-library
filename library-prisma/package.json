@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "lite-server --baseDir=dist",
     "start": "concurrently \"npm run watch\" \"npm run server\"",
-    "compile": "tsc"
+    "compile": "tsc",
+    "build": "next build"
   },
   "dependencies": {
     "@prisma/client": "6.3.0",
