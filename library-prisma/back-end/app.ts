@@ -6,9 +6,6 @@ import cors from "cors";
 import login from "./routes/login.ts";
 import { autenticacao } from "./middlewares/autenticacao.ts";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-fetch(`${apiUrl}/usuariosCadastrados`);
-
 const app = express();
 const port = 3001;
 
