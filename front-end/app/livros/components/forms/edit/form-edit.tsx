@@ -6,13 +6,19 @@ import { editBooks } from "../../../../hooks/useBooks/index";
 import { EditButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import { BookUpdate } from "../../../../types/tipoLivro";
+import SuccessModal from "../../../../components/modals/successModal";
 
 function EditForm(props) {
   const { id, className } = props;
   const { refetch } = props;
   const [openModal, setOpenModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
+
   const handleClose = () => {
     setOpenModal(false);
+  };
+  const handleCloseSuccess = () => {
+    setOpenSuccessModal(false);
   };
   const handleOpen = () => {
     setOpenModal(true);
@@ -34,6 +40,8 @@ function EditForm(props) {
     );
 
     editBooks(objectWithoutEmptyProperties, token);
+    handleClose();
+    setOpenSuccessModal(true);
     refetch();
   }
   return (
@@ -80,6 +88,15 @@ function EditForm(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <div>
+        <SuccessModal
+          show={openSuccessModal}
+          hideSuccessModal={() => {
+            handleCloseSuccess();
+          }}
+          message="O livro foi editado com sucesso!"
+        ></SuccessModal>
+      </div>
     </>
   );
 }

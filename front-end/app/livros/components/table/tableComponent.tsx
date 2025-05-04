@@ -14,10 +14,11 @@ import { Book } from "../../../types/tipoLivro";
 import Cookies from "js-cookie";
 import { Button } from "react-bootstrap";
 import { FaFilter } from "react-icons/fa";
+import SuccessModal from "../../../components/modals/successModal";
 
 export const TableComponent = (props) => {
   const [searchParams, setSearchParams] = useState("");
-
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const { data, refetch, isLoading } = useFetchBooks(searchParams);
   const token = Cookies.get("token");
   const router = useRouter();
@@ -25,6 +26,7 @@ export const TableComponent = (props) => {
   const deleteBook = async (id?: string) => {
     if (id) {
       await deletarLivro(id, token);
+      setOpenSuccessModal(true);
       refetch();
     }
   };
@@ -33,6 +35,9 @@ export const TableComponent = (props) => {
     Cookies.remove("token");
     router.refresh();
   }
+  const handleCloseSuccess = () => {
+    setOpenSuccessModal(false);
+  };
 
   const { className } = props;
 
@@ -120,6 +125,15 @@ export const TableComponent = (props) => {
         </tbody>
       </table>
       {isLoading && <LoadingComponent></LoadingComponent>}
+      <div>
+        <SuccessModal
+          show={openSuccessModal}
+          hideSuccessModal={() => {
+            handleCloseSuccess();
+          }}
+          message="O livro foi deletado com sucesso!"
+        ></SuccessModal>
+      </div>
     </div>
   );
 };

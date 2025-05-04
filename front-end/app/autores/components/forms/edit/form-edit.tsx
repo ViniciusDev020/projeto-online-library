@@ -6,13 +6,21 @@ import { editarLivro } from "../../../../api/routes/livros";
 import { EditButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import { BookUpdate } from "../../../../types/tipoLivro";
+import SuccessModal from "../../../../components/modals/successModal";
+import { Author } from "../../../../types/tipoAutor";
+import { editarAutor } from "../../../../api/routes/autores";
 
 function EditForm(props) {
   const { id, className } = props;
   const { refetch } = props;
   const [openModal, setOpenModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
+
   const handleClose = () => {
     setOpenModal(false);
+  };
+  const handleCloseSuccess = () => {
+    setOpenSuccessModal(false);
   };
   const handleOpen = () => {
     setOpenModal(true);
@@ -20,20 +28,20 @@ function EditForm(props) {
 
   function handleSubmit() {
     const name = document.getElementById("name") as HTMLInputElement;
-    const desc = document.getElementById("desc") as HTMLInputElement;
     const token = Cookies.get("token");
 
-    const newBook: BookUpdate = {
+    const newAuthor: Author = {
       id: id,
       name: name.value,
-      description: desc.value,
     };
 
     const objectWithoutEmptyProperties = Object.fromEntries(
-      Object.entries(newBook).filter(([p, v]) => v != "")
+      Object.entries(newAuthor).filter(([p, v]) => v != "")
     );
 
-    editarLivro(objectWithoutEmptyProperties, token);
+    editarAutor(objectWithoutEmptyProperties, token);
+    setOpenModal(false);
+    setOpenSuccessModal(true);
     refetch();
   }
   return (
@@ -53,15 +61,6 @@ function EditForm(props) {
               <Form.Label>Nome</Form.Label>
               <Form.Control type="text" placeholder="" name="name" id="name" />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Descrição</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder=""
-                name="description"
-                id="desc"
-              />
-            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -80,6 +79,15 @@ function EditForm(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <div>
+        <SuccessModal
+          show={openSuccessModal}
+          hideSuccessModal={() => {
+            handleCloseSuccess();
+          }}
+          message="O autor foi editado com sucesso!"
+        ></SuccessModal>
+      </div>
     </>
   );
 }

@@ -6,9 +6,11 @@ import { criarAutor } from "../../../../hooks/useAuthors/index";
 import { CreateButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import { Author } from "../../../../types/tipoAutor";
+import SuccessModal from "../../../../components/modals/successModal";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [validated, setValidate] = useState(false);
   const { refetch, className } = props;
   const token = Cookies.get("token");
@@ -16,6 +18,10 @@ function CreateForm(props) {
   const handleClose = () => {
     setOpenModal(false);
   };
+  const handleCloseSuccess = () => {
+    setOpenSuccessModal(false);
+  };
+
   const handleOpen = () => {
     setOpenModal(true);
   };
@@ -38,6 +44,8 @@ function CreateForm(props) {
     };
 
     if (validated) criarAutor(newAuthor, token);
+    setOpenModal(false);
+    setOpenSuccessModal(true);
     refetch();
   }
 
@@ -97,6 +105,15 @@ function CreateForm(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <div>
+        <SuccessModal
+          show={openSuccessModal}
+          hideSuccessModal={() => {
+            handleCloseSuccess();
+          }}
+          message="O autor foi criado com sucesso!"
+        ></SuccessModal>
+      </div>
     </>
   );
 }

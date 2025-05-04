@@ -22,7 +22,7 @@ export async function deletarAutor(id: string, token?: string) {
   });
 }
 
-export async function editarAutor(autor: Author, token?: string) {
+export async function editarAutor(autor: any, token?: string) {
   const req = await fetch(
     `http://localhost:3001/autoresCadastrados/${autor.id}`,
     {

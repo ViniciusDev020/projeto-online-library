@@ -12,9 +12,11 @@ import { Button } from "react-bootstrap";
 import { FaFilter } from "react-icons/fa";
 import { Author } from "../../../types/tipoAutor";
 import { deletarAutor } from "../../../api/routes/autores";
+import SuccessModal from "../../../components/modals/successModal";
 
 export const TableComponent = (props) => {
   const [searchParams, setSearchParams] = useState("");
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   const { data: books, refetch, isLoading } = useFetchAuthors();
   const token = Cookies.get("token");
@@ -23,6 +25,7 @@ export const TableComponent = (props) => {
   const deleteAuthor = async (id?: string) => {
     if (id) {
       await deletarAutor(id, token);
+      setOpenSuccessModal(true);
       refetch();
     }
   };
@@ -31,6 +34,10 @@ export const TableComponent = (props) => {
     Cookies.remove("token");
     router.refresh();
   }
+
+  const handleCloseSuccess = () => {
+    setOpenSuccessModal(false);
+  };
 
   const { className } = props;
 
@@ -112,6 +119,15 @@ export const TableComponent = (props) => {
         </tbody>
       </table>
       {isLoading && <LoadingComponent></LoadingComponent>}
+      <div>
+        <SuccessModal
+          show={openSuccessModal}
+          hideSuccessModal={() => {
+            handleCloseSuccess();
+          }}
+          message="O autor foi deletado com sucesso!"
+        ></SuccessModal>
+      </div>
     </div>
   );
 };

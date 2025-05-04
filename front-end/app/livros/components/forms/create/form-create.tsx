@@ -7,9 +7,11 @@ import { BookCreate } from "../../../../types/tipoLivro";
 import { CreateButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import useFetchAuthors from "../../../../hooks/useAuthors/fetch-authors";
+import SuccessModal from "../../../../components/modals/successModal";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [validated, setValidate] = useState(false);
   const token = Cookies.get("token");
 
@@ -18,6 +20,9 @@ function CreateForm(props) {
 
   const handleClose = () => {
     setOpenModal(false);
+  };
+  const handleCloseSuccess = () => {
+    setOpenSuccessModal(false);
   };
   const handleOpen = () => {
     setOpenModal(true);
@@ -47,6 +52,8 @@ function CreateForm(props) {
     };
 
     if (validated) criarLivro(newBook, token);
+    handleClose();
+    setOpenSuccessModal(true);
     refetch();
   }
 
@@ -155,6 +162,15 @@ function CreateForm(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <div>
+        <SuccessModal
+          show={openSuccessModal}
+          hideSuccessModal={() => {
+            handleCloseSuccess();
+          }}
+          message="O livro foi criado com sucesso!"
+        ></SuccessModal>
+      </div>
     </>
   );
 }
