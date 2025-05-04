@@ -4,6 +4,7 @@
     "outDir": "./dist/js/",
     "noEmitOnError": true,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "lib": [
