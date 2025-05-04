@@ -9,6 +9,7 @@ async function main() {
       id: randomUUID(),
       name: "Livro de história",
       description: "Descrição do livro de história.",
+      author: {},
     },
   });
   console.log({ livroHistoria });
@@ -20,7 +21,7 @@ async function main() {
       id: randomUUID(),
       name: "Pedro Lopez",
     },
-  })
+  });
 
   console.log({ autor });
 }
