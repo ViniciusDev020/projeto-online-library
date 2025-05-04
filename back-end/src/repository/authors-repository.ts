@@ -6,6 +6,8 @@ const prisma = new PrismaClient();
 export type Author = {
   id: string;
   name: string;
+  age: number;
+  nacionality: string;
 };
 
 export async function listarAutores() {
@@ -40,6 +42,8 @@ export async function criarAutor(author: Author) {
     data: {
       id: uuidv4(),
       name: author.name,
+      age: author.age,
+      nacionality: author.nacionality,
     },
   });
 }

@@ -23,7 +23,9 @@ model Livro {
 }
 
 model Author {
-  id    String  @id @default(uuid()) @db.VarChar(36)
-  name  String
-  Livro Livro[]
+  id          String  @id @default(uuid()) @db.VarChar(36)
+  name        String
+  age         Int
+  nacionality String
+  Livro       Livro[]
 }
