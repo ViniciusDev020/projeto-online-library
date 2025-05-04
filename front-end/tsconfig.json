@@ -29,7 +29,7 @@
     "strictNullChecks": true
   },
   "include": [
-    "fonte/app/**/*",
+    "app/**/*.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [

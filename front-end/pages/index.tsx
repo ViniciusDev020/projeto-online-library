@@ -15,11 +15,7 @@ export default function page() {
   const token = Cookies.get("token");
 
   useEffect(() => {
-    if (!token) {
-      router.push("/login");
-    } else {
-      router.push("/livros");
-    }
+    router.push("/login");
   });
 
   return (
