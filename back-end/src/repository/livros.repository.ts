@@ -14,7 +14,7 @@ export type Livro = {
   description: string;
 };
 
-export async function listarLivros(searchQuery) {
+export async function listarLivros(searchQuery: string) {
   if (searchQuery && searchQuery != "") {
     return prisma.livro.findMany({
       where: {
