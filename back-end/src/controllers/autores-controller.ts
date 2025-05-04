@@ -1,3 +1,5 @@
+import type { Request, Response } from "express";
+
 import {
   createAuthorService,
   deleteAuthorByIdService,
@@ -6,34 +8,34 @@ import {
   updateAuthorByIdService,
 } from "../services/author-service.ts";
 
-export async function listAllAuthors(req, res) {
-  const searchQuery = req.query.search;
+export async function listAllAuthors(req: Request, res: Response) {
+  const searchQuery: any = req.query.search;
   const response = await listAllAuthorsService(req, res, searchQuery);
 
   return res.json(response);
 }
 
-export async function listAuthorById(req, res) {
+export async function listAuthorById(req: Request, res: Response) {
   const response = await listAuthorByIdService(req, res);
 
   return res.json(response);
 }
 
-export async function deleteAuthorById(req, res) {
+export async function deleteAuthorById(req: Request, res: Response) {
   const response = await deleteAuthorByIdService(req, res);
   response;
 
   res.send("AUTOR DELETADO COM SUCESSO!");
 }
 
-export async function createAuthor(req, res) {
+export async function createAuthor(req: any, res: Response) {
   const response = await createAuthorService(req, req);
   response;
 
   res.send("AUTOR CRIADO COM SUCESSO!");
 }
 
-export async function updateAuthorById(req, res) {
+export async function updateAuthorById(req: Request, res: Response) {
   const response = await updateAuthorByIdService(req, res);
   response;
 

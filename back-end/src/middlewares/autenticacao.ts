@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../controllers/login-controller.ts";
+import type { Request, Response, NextFunction } from "express";
 
-export async function autenticacao(req, res, next) {
+async function autenticacao(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -17,3 +18,5 @@ export async function autenticacao(req, res, next) {
     }
   });
 }
+
+export default autenticacao;

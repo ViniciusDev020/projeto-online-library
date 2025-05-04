@@ -9,15 +9,14 @@
     "watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "start": "ts-node api/index.ts"
+    "start": "ts-node src/api/index.ts"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.7.2",
     "@prisma/client": "6.3.0",
     "@prisma/extension-accelerate": "1.2.1",
     "@prisma/extension-pulse": "1.2.0",
     "@types/cookie-parser": "^1.4.8",
-    "@types/express": "^5.0.0",
+    "@vercel/postgres": "^0.7.2",
     "cors": "^2.8.5",
     "dotenv": "16.4.7",
     "express": "^4.21.2",
@@ -33,7 +32,9 @@
   },
   "devDependencies": {
     "@tanstack/react-query": "^5.75.1",
-    "@types/express": "^5.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.3",
     "@types/react": "19.0.8",
     "prisma": "6.3.0",

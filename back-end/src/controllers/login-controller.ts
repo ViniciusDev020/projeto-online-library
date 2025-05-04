@@ -1,3 +1,4 @@
+import type { Request, Response } from "express";
 import { login } from "../repository/usuarios.repository.ts";
 import jwt from "jsonwebtoken";
 
@@ -7,7 +8,7 @@ const generateToken = (userPassword: string): string => {
   return jwt.sign({ userPassword }, JWT_SECRET, { expiresIn: "1h" }); // Token expires in 1 hour
 };
 
-export async function realizarLogin(req, res) {
+export async function realizarLogin(req: Request, res: Response) {
   try {
     const user = req.body;
 
@@ -20,6 +21,6 @@ export async function realizarLogin(req, res) {
     const token = generateToken(user.password);
     res.json({ token });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 }

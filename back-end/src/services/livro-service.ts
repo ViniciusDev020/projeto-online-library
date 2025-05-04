@@ -4,14 +4,19 @@ import listarLivros, {
   livroPeloId,
   removerLivro,
 } from "../repository/livros.repository.ts";
+import type { Request, Response } from "express";
 
-export async function listAllBooksService(req, res, searchQuery) {
+export async function listAllBooksService(
+  req: Request,
+  res: Response,
+  searchQuery: any
+) {
   const response = await listarLivros(searchQuery);
 
   return response;
 }
 
-export async function listBookByIdService(req, res) {
+export async function listBookByIdService(req: Request, res: Response) {
   const params = req.params;
   const id = params.id;
   const response = await livroPeloId(id);
@@ -19,7 +24,7 @@ export async function listBookByIdService(req, res) {
   return response;
 }
 
-export async function deleteBookByIdService(req, res) {
+export async function deleteBookByIdService(req: Request, res: Response) {
   const params = req.params;
   const id: string = params.id;
   const response = await removerLivro(id);
@@ -27,7 +32,7 @@ export async function deleteBookByIdService(req, res) {
   return response;
 }
 
-export async function createBookService(req, res) {
+export async function createBookService(req: Request, res: Response) {
   const livro = req.body;
 
   const response = await criarLivro(livro);
@@ -35,7 +40,7 @@ export async function createBookService(req, res) {
   return response;
 }
 
-export async function updateBookByIdService(req, res) {
+export async function updateBookByIdService(req: Request, res: Response) {
   const params = req.params;
   const id = params.id;
   const livro = req.body;

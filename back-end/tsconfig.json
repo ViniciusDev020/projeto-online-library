@@ -1,27 +1,15 @@
 {
-    "compilerOptions": {
-      "target": "ES2022",
-      "outDir": "./dist/js/",
-      "noEmitOnError": true,
-      "allowSyntheticDefaultImports": true,
-      "allowImportingTsExtensions": true,
-      "resolveJsonModule": true,
-      "moduleResolution": "node",
-      "types": ["node"],
-      "allowJs": true,
-      "skipLibCheck": true,
-      "strict": false,
-      "noEmit": true,
-      "incremental": true,
-      "esModuleInterop": true,
-      "isolatedModules": true,
-      "strictNullChecks": true
-    },
-    "include": [
-      "src/**/*"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
-  }
-  
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "target": "ES2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "allowJs": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"],
+}
