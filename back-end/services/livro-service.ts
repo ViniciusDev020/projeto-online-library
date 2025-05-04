@@ -3,7 +3,7 @@ import listarLivros, {
   editarLivro,
   livroPeloId,
   removerLivro,
-} from "../repository/livros.repository";
+} from "../repository/livros.repository.ts";
 
 export async function listAllBooksService(req, res, searchQuery) {
   const response = await listarLivros(searchQuery);

@@ -5,7 +5,7 @@ import {
   listAllAuthors,
   listAuthorById,
   updateAuthorById,
-} from "../controllers/autores-controller";
+} from "../controllers/autores-controller.ts";
 
 const AutoresRouter = Router();
 

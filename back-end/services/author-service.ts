@@ -4,7 +4,7 @@ import {
   editarAutor,
   listarAutores,
   removerAutor,
-} from "../repository/authors-repository";
+} from "../repository/authors-repository.ts";
 
 export async function listAllAuthorsService(req, res, searchQuery) {
   const response = await listarAutores();

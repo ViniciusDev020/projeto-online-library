@@ -5,7 +5,7 @@ import {
   listAllBooks,
   listBookById,
   updateBookById,
-} from "../controllers/livro-controller";
+} from "../controllers/livro-controller.ts";
 
 const LivrosRouter = Router();
 

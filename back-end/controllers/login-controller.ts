@@ -1,4 +1,4 @@
-import { login } from "../repository/usuarios.repository";
+import { login } from "../repository/usuarios.repository.ts";
 import jwt from "jsonwebtoken";
 
 export const JWT_SECRET = "your_jwt_secret";
