@@ -5,6 +5,11 @@ import AutoresRouter from "../routes/autores-router.ts";
 import cors from "cors";
 import login from "../routes/login.ts";
 import autenticacao from "../middlewares/autenticacao.ts";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient({
+  log: ["query", "info", "warn", "error"],
+});
 
 const app = express();
 const port = process.env.PORT;
