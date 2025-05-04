@@ -4,7 +4,7 @@ import {
   listAllAuthorsService,
   listAuthorByIdService,
   updateAuthorByIdService,
-} from "../services/author-service.ts";
+} from "../services/author-service";
 
 export async function listAllAuthors(req, res) {
   const searchQuery = req.query.search;

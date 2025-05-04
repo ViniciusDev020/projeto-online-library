@@ -5,7 +5,7 @@ import {
   listAllUsers,
   listUserById,
   updateUserById,
-} from "../controllers/usuario-controller.ts";
+} from "../controllers/usuario-controller";
 
 const UsuariosRouter = Router();
 

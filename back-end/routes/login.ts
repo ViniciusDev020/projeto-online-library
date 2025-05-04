@@ -1,5 +1,5 @@
 import Router from "express";
-import { realizarLogin } from "../controllers/login-controller.ts";
+import { realizarLogin } from "../controllers/login-controller";
 
 const login = Router();
 

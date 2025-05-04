@@ -4,7 +4,7 @@ import {
   editarUsuario,
   listarUsuarios,
   removerUsuario,
-} from "../repository/usuarios.repository.ts";
+} from "../repository/usuarios.repository";
 
 export async function listAllUsersService(req, res) {
   const response = await listarUsuarios();

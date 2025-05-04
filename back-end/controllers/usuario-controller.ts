@@ -4,7 +4,7 @@ import {
   listAllUsersService,
   listUserByIdService,
   updateUserByIdService,
-} from "../services/usuario-service.ts";
+} from "../services/usuario-service";
 
 export async function listAllUsers(req, res) {
   const response = await listAllUsersService(req, res);

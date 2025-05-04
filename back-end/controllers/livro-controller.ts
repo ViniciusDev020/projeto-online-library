@@ -4,7 +4,7 @@ import {
   listAllBooksService,
   listBookByIdService,
   updateBookByIdService,
-} from "../services/livro-service.ts";
+} from "../services/livro-service";
 
 export async function listAllBooks(req, res) {
   const searchQuery = req.query.search;
