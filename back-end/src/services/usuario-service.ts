@@ -5,14 +5,15 @@ import {
   listarUsuarios,
   removerUsuario,
 } from "../repository/usuarios.repository.ts";
+import { Request, Response, NextFunction } from "express";
 
-export async function listAllUsersService(req, res) {
+export async function listAllUsersService(req: Request, res: Response) {
   const response = await listarUsuarios();
 
   return response;
 }
 
-export async function listUserByIdService(req, res) {
+export async function listUserByIdService(req: Request, res: Response) {
   const params = req.params;
   const id = params.id;
 
@@ -21,7 +22,7 @@ export async function listUserByIdService(req, res) {
   return response;
 }
 
-export async function deleteUserByIdService(req, res) {
+export async function deleteUserByIdService(req: Request, res: Response) {
   const params = req.params;
   const id: string = params.id;
   console.log(id);
@@ -31,7 +32,7 @@ export async function deleteUserByIdService(req, res) {
   return response;
 }
 
-export async function createUserService(req, res) {
+export async function createUserService(req: Request, res: Response) {
   const livro = req.body;
 
   const response = await criarUsuario(livro);
@@ -39,7 +40,7 @@ export async function createUserService(req, res) {
   return response;
 }
 
-export async function updateUserByIdService(req, res) {
+export async function updateUserByIdService(req: Request, res: Response) {
   const params = req.params;
   const id = params.id;
   const user = req.body;
