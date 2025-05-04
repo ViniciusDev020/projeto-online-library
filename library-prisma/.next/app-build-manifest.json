@@ -11,6 +11,12 @@
       "static/css/app/login/page.css",
       "static/chunks/app/login/page.js"
     ],
+    "/livros/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/livros/page.css",
+      "static/chunks/app/livros/page.js"
+    ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
