@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
       "target": "ES2022",
+      "outDir": "./dist/js/",
       "noEmitOnError": true,
       "allowSyntheticDefaultImports": true,
       "allowImportingTsExtensions": true,
