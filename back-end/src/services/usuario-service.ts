@@ -5,7 +5,7 @@ import {
   listarUsuarios,
   removerUsuario,
 } from "../repository/usuarios.repository.ts";
-import { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 
 export async function listAllUsersService(req: Request, res: Response) {
   const response = await listarUsuarios();
