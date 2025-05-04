@@ -4,7 +4,7 @@ import {
   criarNovoLivro,
   editarLivro,
 } from "../../api/routes/livros/index";
-import { Book, BookUpdate } from "../../types/tipoLivro";
+import { BookCreate, BookUpdate } from "../../types/tipoLivro";
 
 export async function listBooks() {
   const books = await listarLivros();
@@ -24,7 +24,7 @@ export async function editBooks(book: BookUpdate, token: string) {
   return books;
 }
 
-export async function criarLivro(book, token) {
+export async function criarLivro(book: BookCreate, token: string) {
   const books = await criarNovoLivro(book, token);
 
   return books;

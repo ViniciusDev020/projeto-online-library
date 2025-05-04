@@ -23,11 +23,6 @@ export default function page() {
   );
   const [modalsTheme, setModalsTheme] = useState("bg-light text-dark");
 
-  function handleLogout() {
-    Cookies.remove("token");
-    router.refresh();
-  }
-
   function handleTheme() {
     const themeButton = document.getElementById(
       "theme-button"

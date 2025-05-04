@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { listarAutores } from "../../api/routes/autores/index";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";

@@ -1,4 +1,4 @@
-import { Book, BookUpdate } from "../../../types/tipoLivro";
+import { BookCreate, BookUpdate } from "../../../types/tipoLivro";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -41,7 +41,7 @@ export async function editarLivro(book: BookUpdate, token?: string) {
   });
 }
 
-export async function criarNovoLivro(book: Book, token?: string) {
+export async function criarNovoLivro(book: BookCreate, token?: string) {
   const req = await fetch(`${apiUrl}/livrosCadastrados`, {
     method: "POST",
     body: JSON.stringify(book),

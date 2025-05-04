@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import listarLivros from "../../api/routes/livros/index";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
