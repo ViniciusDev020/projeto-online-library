@@ -9,6 +9,7 @@ import { autenticacao } from "./middlewares/autenticacao.ts";
 const app = express();
 const port = 3001;
 
+app.options("*", cors());
 app.use(cors());
 app.use(express.json());
 app.use("/login", login);
