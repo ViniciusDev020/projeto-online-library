@@ -15,11 +15,6 @@
       "incremental": true,
       "esModuleInterop": true,
       "isolatedModules": true,
-      "plugins": [
-        {
-          "name": "next"
-        }
-      ],
       "strictNullChecks": true
     },
     "include": [
