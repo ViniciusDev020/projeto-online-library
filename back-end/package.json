@@ -29,7 +29,8 @@
     "uuid": "^11.1.0"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts",
+    "schema": "src/prisma/schema.prisma"
   },
   "devDependencies": {
     "@tanstack/react-query": "^5.75.1",
