@@ -29,7 +29,7 @@ app.use(cors());
 
 app.use(express.json());
 app.use("/login", login);
-// app.use(autenticacao);
+app.use(autenticacao);
 app.use("/livrosCadastrados", LivrosRouter);
 app.use("/usuariosCadastrados", UsuariosRouter);
 app.use("/autoresCadastrados", AutoresRouter);
