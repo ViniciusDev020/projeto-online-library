@@ -18,7 +18,7 @@ export const TableComponent = (props) => {
   const [searchParams, setSearchParams] = useState("");
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
-  const { data: books, refetch, isLoading } = useFetchAuthors();
+  const { data: books, refetch, isLoading } = useFetchAuthors(searchParams);
   const token = Cookies.get("token");
   const router = useRouter();
 
@@ -80,6 +80,8 @@ export const TableComponent = (props) => {
         <thead>
           <tr>
             <th>Nome</th>
+            <th>Idade</th>
+            <th>Nacionalidade</th>
           </tr>
         </thead>
         <tbody>
@@ -87,7 +89,11 @@ export const TableComponent = (props) => {
             return (
               <tr key={index}>
                 <td>{author.name}</td>
+                <td>{author.age}</td>
                 <td>
+                  <div className="d-inline-block" style={{ width: "115px" }}>
+                    {author.nacionality}
+                  </div>
                   <div
                     className="btn-group gap-2"
                     style={{

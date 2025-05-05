@@ -1,12 +1,17 @@
 import { Author } from "../../../types/tipoAutor";
 
-export async function listarAutores(token?: string) {
-  const req = await fetch("http://localhost:3001/autoresCadastrados", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+export async function listarAutores(token?: string, searchParams?: string) {
+  const req = await fetch(
+    `${apiUrl}/autoresCadastrados?search=${searchParams}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
 
   const res = await req.json();
 
@@ -14,7 +19,7 @@ export async function listarAutores(token?: string) {
 }
 
 export async function deletarAutor(id: string, token?: string) {
-  const req = await fetch(`http://localhost:3001/autoresCadastrados/${id}`, {
+  const req = await fetch(`${apiUrl}/autoresCadastrados/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: "Bearer " + token,
@@ -23,21 +28,18 @@ export async function deletarAutor(id: string, token?: string) {
 }
 
 export async function editarAutor(autor: any, token?: string) {
-  const req = await fetch(
-    `http://localhost:3001/autoresCadastrados/${autor.id}`,
-    {
-      method: "PUT",
-      body: JSON.stringify(autor),
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const req = await fetch(`${apiUrl}/autoresCadastrados/${autor.id}`, {
+    method: "PUT",
+    body: JSON.stringify(autor),
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export async function criarNovoAutor(autor: Author, token?: string) {
-  const req = await fetch(`http://localhost:3001/autoresCadastrados`, {
+  const req = await fetch(`${apiUrl}/autoresCadastrados`, {
     method: "POST",
     body: JSON.stringify(autor),
     headers: {

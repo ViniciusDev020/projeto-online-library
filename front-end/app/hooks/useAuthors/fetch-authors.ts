@@ -3,12 +3,12 @@ import { listarAutores } from "../../api/routes/autores/index";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
 
-const useFetchAuthors = () => {
+const useFetchAuthors = (searchParams?: string) => {
   const token = Cookies.get("token");
 
   const fetchData = async () => {
     console.log("fetch data foi executado");
-    const res = await listarAutores(token);
+    const res = await listarAutores(token, searchParams);
 
     return res;
   };

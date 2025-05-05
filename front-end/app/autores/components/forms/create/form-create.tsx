@@ -38,9 +38,15 @@ function CreateForm(props) {
 
   function handleSubmit() {
     const name = document.getElementById("name") as HTMLInputElement;
+    const age = document.getElementById("age") as HTMLInputElement;
+    const nacionality = document.getElementById(
+      "nacionality"
+    ) as HTMLInputElement;
 
     const newAuthor: Author = {
       name: name?.value,
+      age: parseInt(age.value),
+      nacionality: nacionality.value,
     };
 
     if (validated) criarAutor(newAuthor, token);
@@ -84,6 +90,28 @@ function CreateForm(props) {
                     message.innerHTML = "";
                   }
                 }}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Idade</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder=""
+                name="age"
+                id="age"
+                required={true}
+                onInput={() => {}}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Nacionalidade</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder=""
+                name="nacionality"
+                id="nacionality"
+                required={true}
+                onInput={(e) => {}}
               />
             </Form.Group>
           </Form>
