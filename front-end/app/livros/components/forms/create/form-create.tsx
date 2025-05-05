@@ -8,6 +8,7 @@ import { CreateButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import useFetchAuthors from "../../../../hooks/useAuthors/fetch-authors";
 import SuccessModal from "../../../../components/modals/successModal";
+import { Author } from "../../../../types/tipoAutor";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
@@ -16,7 +17,7 @@ function CreateForm(props) {
   const token = Cookies.get("token");
 
   const { className, refetch } = props;
-  const { data } = useFetchAuthors();
+  const { data } = useFetchAuthors("");
 
   const handleClose = () => {
     setOpenModal(false);
@@ -132,7 +133,7 @@ function CreateForm(props) {
                   }
                 }}
               >
-                {data?.map((i: any) => {
+                {data?.map((i: Author) => {
                   if (i)
                     return (
                       <option value={i.id} key={i.id}>
