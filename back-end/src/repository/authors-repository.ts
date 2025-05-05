@@ -10,11 +10,34 @@ export type Author = {
   nacionality: string;
 };
 
-export async function listarAutores() {
+export async function listarAutores(searchQuery?: string) {
+  if (searchQuery) {
+    return prisma.author.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: searchQuery,
+              mode: "insensitive",
+            },
+          },
+          {
+            nacionality: {
+              contains: searchQuery,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+  }
+
   return prisma.author.findMany({
     select: {
       id: true,
       name: true,
+      age: true,
+      nacionality: true,
       Livro: true,
     },
   });
