@@ -2,12 +2,13 @@ import { useEffect } from "react";
 import listarLivros from "../../api/routes/livros/index";
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
+import type { pagination } from "../../types/pagination";
 
-const useFetchBooks = (searchParams?: string) => {
+const useFetchBooks = (searchParams?: string, pagination?: pagination) => {
   const token = Cookies.get("token");
 
   const fetchData = async () => {
-    const res = await listarLivros(token, searchParams);
+    const res = await listarLivros(token, searchParams, pagination);
 
     return res;
   };

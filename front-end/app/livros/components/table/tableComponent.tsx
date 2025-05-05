@@ -10,7 +10,7 @@ import truncateString from "../../../components/formatters/truncate";
 import NavigationBar from "../../../components/navigationBar/NavigationBar";
 import { LoadingComponent } from "../../../components/loading/LoadingComponent";
 import { Book } from "../../../types/tipoLivro";
-
+import PaginationComponent from "../../../components/pagination/PaginationComponent";
 import Cookies from "js-cookie";
 import { Button } from "react-bootstrap";
 import { FaFilter } from "react-icons/fa";
@@ -18,8 +18,13 @@ import SuccessModal from "../../../components/modals/successModal";
 
 export const TableComponent = (props) => {
   const [searchParams, setSearchParams] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
-  const { data, refetch, isLoading } = useFetchBooks(searchParams);
+  const { data, refetch, isLoading } = useFetchBooks(searchParams, {
+    limit: limit,
+    page: page,
+  });
   const token = Cookies.get("token");
   const router = useRouter();
 
@@ -41,11 +46,11 @@ export const TableComponent = (props) => {
 
   const { className } = props;
 
-  const dataToMap: Book[] = data == null ? [] : data;
+  const dataToMap: Book[] = data?.items == null ? [] : data.items;
 
   useEffect(() => {
     refetch();
-  }, [searchParams]);
+  }, [searchParams, page]);
 
   <link
     rel="stylesheet"
@@ -134,6 +139,11 @@ export const TableComponent = (props) => {
           message="O livro foi deletado com sucesso!"
         ></SuccessModal>
       </div>
+      <PaginationComponent
+        total={data?.total}
+        limit={limit}
+        setPage={setPage}
+      ></PaginationComponent>
     </div>
   );
 };
