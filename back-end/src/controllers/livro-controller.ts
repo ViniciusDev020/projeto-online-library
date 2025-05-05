@@ -9,7 +9,15 @@ import type { Request, Response } from "express";
 
 export async function listAllBooks(req: Request, res: Response) {
   const searchQuery: any = req.query.search;
-  const response = await listAllBooksService(req, res, searchQuery);
+  const paginationParams: any = req.query.pagination;
+  const { page, limit } = JSON.parse(paginationParams);
+
+  const pagination = {
+    page: parseInt(page),
+    limit: parseInt(limit),
+  };
+
+  const response = await listAllBooksService(req, res, searchQuery, pagination);
 
   return res.json(response);
 }
