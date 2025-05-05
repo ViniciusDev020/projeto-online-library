@@ -47,25 +47,36 @@ export async function listarLivros(
       },
     });
   }
-
-  return prisma.livro.findMany({
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      author: {
-        select: {
-          id: true,
-          name: true,
+  const [total, totalResults, items] = await prisma.$transaction([
+    prisma.livro.count(),
+    prisma.livro.count({
+      take: limit,
+      skip: offset,
+      orderBy: {
+        name: "asc",
+      },
+    }),
+    prisma.livro.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        author: {
+          select: {
+            id: true,
+            name: true,
+          },
         },
       },
-    },
-    take: limit,
-    skip: offset,
-    orderBy: {
-      name: "asc",
-    },
-  });
+      take: limit,
+      skip: offset,
+      orderBy: {
+        name: "asc",
+      },
+    }),
+  ]);
+
+  return { total, totalResults, items };
 }
 
 export async function livroPeloId(idLivro: string) {
