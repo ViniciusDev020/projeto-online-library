@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
-import { pagination } from "../types/pagination";
+import type { pagination } from "../types/pagination";
 
 const prisma = new PrismaClient();
 
@@ -40,6 +40,22 @@ export async function listarAutores(
         },
       }),
       prisma.author.findMany({
+        where: {
+          OR: [
+            {
+              name: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
+            },
+            {
+              nacionality: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
         select: {
           id: true,
           name: true,
