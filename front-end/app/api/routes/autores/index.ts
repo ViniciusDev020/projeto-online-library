@@ -1,10 +1,17 @@
+import { pagination } from "../../../types/pagination";
 import { Author } from "../../../types/tipoAutor";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export async function listarAutores(token?: string, searchParams?: string) {
+export async function listarAutores(
+  token: string,
+  searchParams: string,
+  pagination: pagination
+) {
   const req = await fetch(
-    `${apiUrl}/autoresCadastrados?search=${searchParams}`,
+    `${apiUrl}/autoresCadastrados?search=${searchParams}&pagination=${JSON.stringify(
+      pagination
+    )}`,
     {
       method: "GET",
       headers: {

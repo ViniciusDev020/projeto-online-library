@@ -143,6 +143,7 @@ export const TableComponent = (props) => {
         total={data?.total}
         limit={limit}
         setPage={setPage}
+        page={page}
       ></PaginationComponent>
     </div>
   );

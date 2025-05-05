@@ -13,12 +13,17 @@ import { FaFilter } from "react-icons/fa";
 import { Author } from "../../../types/tipoAutor";
 import { deletarAutor } from "../../../api/routes/autores";
 import SuccessModal from "../../../components/modals/successModal";
+import PaginationComponent from "../../../components/pagination/PaginationComponent";
 
 export const TableComponent = (props) => {
   const [searchParams, setSearchParams] = useState("");
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
-
-  const { data: books, refetch, isLoading } = useFetchAuthors(searchParams);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const { data, refetch, isLoading } = useFetchAuthors(searchParams, {
+    limit: limit,
+    page: page,
+  });
   const token = Cookies.get("token");
   const router = useRouter();
 
@@ -41,11 +46,11 @@ export const TableComponent = (props) => {
 
   const { className } = props;
 
-  const dataToMap: Author[] = books == null ? [] : books;
+  const dataToMap: Author[] = data?.items == null ? [] : data?.items;
 
   useEffect(() => {
     refetch();
-  }, [searchParams]);
+  }, [searchParams, page]);
 
   <link
     rel="stylesheet"
@@ -134,6 +139,12 @@ export const TableComponent = (props) => {
           message="O autor foi deletado com sucesso!"
         ></SuccessModal>
       </div>
+      <PaginationComponent
+        total={data?.total}
+        limit={limit}
+        setPage={setPage}
+        page={page}
+      ></PaginationComponent>
     </div>
   );
 };

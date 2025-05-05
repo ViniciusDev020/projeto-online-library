@@ -17,7 +17,10 @@ function CreateForm(props) {
   const token = Cookies.get("token");
 
   const { className, refetch } = props;
-  const { data } = useFetchAuthors("");
+  const { data } = useFetchAuthors("", {
+    page: 1,
+    limit: 50,
+  });
 
   const handleClose = () => {
     setOpenModal(false);
@@ -59,6 +62,8 @@ function CreateForm(props) {
   }
 
   let disableInput = validated == false ? true : false;
+
+  const dataToMap: Author[] = data?.items == null ? [] : data?.items;
 
   return (
     <>
@@ -133,7 +138,7 @@ function CreateForm(props) {
                   }
                 }}
               >
-                {data?.map((i: Author) => {
+                {dataToMap.map((i: Author) => {
                   if (i)
                     return (
                       <option value={i.id} key={i.id}>

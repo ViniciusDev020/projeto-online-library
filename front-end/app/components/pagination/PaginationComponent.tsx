@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function PaginationComponent(props) {
-  const { total, limit, setPage } = props;
+  const { total, limit, setPage, page } = props;
+
   const arrayValues: number[] = [];
   const pagesNumber = parseInt(total) / parseInt(limit);
 
@@ -13,7 +14,15 @@ export default function PaginationComponent(props) {
     <nav aria-label="Page navigation example">
       <ul className="pagination">
         <li className="page-item">
-          <a className="page-link" href="#">
+          <a
+            className="page-link"
+            href="#"
+            onClick={() => {
+              if (page >= 2) {
+                setPage(page - 1);
+              }
+            }}
+          >
             Previous
           </a>
         </li>
@@ -33,7 +42,15 @@ export default function PaginationComponent(props) {
           );
         })}
         <li className="page-item">
-          <a className="page-link" href="#">
+          <a
+            className="page-link"
+            href="#"
+            onClick={() => {
+              if (page < arrayValues.length) {
+                setPage(page + 1);
+              }
+            }}
+          >
             Next
           </a>
         </li>
