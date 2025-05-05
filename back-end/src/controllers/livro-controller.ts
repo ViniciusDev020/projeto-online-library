@@ -8,7 +8,7 @@ import {
 import type { Request, Response } from "express";
 
 export async function listAllBooks(req: Request, res: Response) {
-  const searchQuery = req.query.search;
+  const searchQuery: any = req.query.search;
   const response = await listAllBooksService(req, res, searchQuery);
 
   return res.json(response);
