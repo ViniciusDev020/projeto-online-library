@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
+import { pagination } from "../types/pagination";
 
 const prisma = new PrismaClient();
 
@@ -10,25 +11,63 @@ export type Author = {
   nacionality: string;
 };
 
-export async function listarAutores(searchQuery?: string) {
+export async function listarAutores(
+  searchQuery: string,
+  pagination: pagination
+) {
+  const { page, limit } = pagination;
+  const offset = (page - 1) * limit;
+
   if (searchQuery && searchQuery != "") {
-    return prisma.author.findMany({
-      where: {
-        OR: [
-          {
-            name: {
-              contains: searchQuery,
-              mode: "insensitive",
+    const [total, totalResults, items] = await prisma.$transaction([
+      prisma.author.count(),
+      prisma.author.count({
+        where: {
+          OR: [
+            {
+              name: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
             },
-          },
-          {
-            nacionality: {
-              contains: searchQuery,
-              mode: "insensitive",
+            {
+              nacionality: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
             },
-          },
-        ],
+          ],
+        },
+      }),
+      prisma.author.findMany({
+        select: {
+          id: true,
+          name: true,
+          age: true,
+          nacionality: true,
+          Livro: true,
+        },
+        take: limit,
+        skip: offset,
+        orderBy: {
+          name: "asc",
+        },
+      }),
+    ]);
+
+    return { total, totalResults, items };
+  }
+
+  const [total, totalResults, items] = await prisma.$transaction([
+    prisma.author.count(),
+    prisma.author.count({
+      take: limit,
+      skip: offset,
+      orderBy: {
+        name: "asc",
       },
+    }),
+    prisma.author.findMany({
       select: {
         id: true,
         name: true,
@@ -36,18 +75,15 @@ export async function listarAutores(searchQuery?: string) {
         nacionality: true,
         Livro: true,
       },
-    });
-  }
+      take: limit,
+      skip: offset,
+      orderBy: {
+        name: "asc",
+      },
+    }),
+  ]);
 
-  return prisma.author.findMany({
-    select: {
-      id: true,
-      name: true,
-      age: true,
-      nacionality: true,
-      Livro: true,
-    },
-  });
+  return { total, totalResults, items };
 }
 
 export async function autorPeloId(idLivro: string) {

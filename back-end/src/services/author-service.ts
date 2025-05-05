@@ -10,9 +10,10 @@ import type { Request, Response } from "express";
 export async function listAllAuthorsService(
   req: Request,
   res: Response,
-  searchQuery: any
+  searchQuery: any,
+  pagination: any
 ) {
-  const response = await listarAutores(searchQuery);
+  const response = await listarAutores(searchQuery, pagination);
 
   return response;
 }

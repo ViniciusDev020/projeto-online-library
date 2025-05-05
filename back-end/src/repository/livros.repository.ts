@@ -13,39 +13,58 @@ export async function listarLivros(
   const offset = (page - 1) * limit;
 
   if (searchQuery && searchQuery != "") {
-    return prisma.livro.findMany({
-      where: {
-        OR: [
-          {
-            name: {
-              contains: searchQuery,
-              mode: "insensitive",
+    const [total, totalResults, items] = await prisma.$transaction([
+      prisma.livro.count(),
+      prisma.livro.count({
+        where: {
+          OR: [
+            {
+              name: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
             },
-          },
-          {
-            description: {
-              contains: searchQuery,
-              mode: "insensitive",
+            {
+              description: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
             },
-          },
-        ],
-      },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        author: {
-          select: {
-            name: true,
+          ],
+        },
+      }),
+      prisma.livro.findMany({
+        where: {
+          OR: [
+            {
+              name: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: searchQuery,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          author: {
+            select: {
+              id: true,
+              name: true,
+            },
           },
         },
-      },
-      take: limit,
-      skip: offset,
-      orderBy: {
-        name: "asc",
-      },
-    });
+      }),
+    ]);
+
+    return { total, totalResults, items };
   }
   const [total, totalResults, items] = await prisma.$transaction([
     prisma.livro.count(),

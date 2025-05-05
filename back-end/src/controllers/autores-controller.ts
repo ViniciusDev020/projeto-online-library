@@ -10,7 +10,20 @@ import {
 
 export async function listAllAuthors(req: Request, res: Response) {
   const searchQuery: any = req.query.search;
-  const response = await listAllAuthorsService(req, res, searchQuery);
+  const paginationParams: any = req.query.pagination;
+  const { page, limit } = JSON.parse(paginationParams);
+
+  const pagination = {
+    page: parseInt(page),
+    limit: parseInt(limit),
+  };
+
+  const response = await listAllAuthorsService(
+    req,
+    res,
+    searchQuery,
+    pagination
+  );
 
   return res.json(response);
 }
