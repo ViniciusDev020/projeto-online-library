@@ -95,7 +95,7 @@ function CreateForm(props) {
             <Form.Group className="mb-3">
               <Form.Label>Idade</Form.Label>
               <Form.Control
-                type="number"
+                type="text"
                 placeholder=""
                 name="age"
                 id="age"

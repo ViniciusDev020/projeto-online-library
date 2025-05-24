@@ -60,7 +60,10 @@ export const TableComponent = (props) => {
 
   return (
     <div className="container">
-      <NavigationBar onClick={handleLogout} className={className.header} />
+      <NavigationBar
+        onClick={handleLogout}
+        className="navbar navbar-expand-lg navbar-light bg-white"
+      />
 
       <div className="btn-group mt-4 gap-2" style={{ marginBottom: "20px" }}>
         <input
@@ -73,15 +76,12 @@ export const TableComponent = (props) => {
         <CreateForm
           className={{
             modal: className.modals,
-            buttons: className.buttons,
+            buttons: "btn btn-light",
           }}
           refetch={refetch}
         />
-        <Button className={className.buttons}>
-          Filtrar <FaFilter></FaFilter>
-        </Button>
       </div>
-      <table className={className.table}>
+      <table className="table table-white">
         <thead>
           <tr>
             <th>Nome</th>
@@ -109,7 +109,7 @@ export const TableComponent = (props) => {
                   >
                     <DeleteButton
                       id="delete"
-                      className={className.buttons}
+                      className="btn btn-light"
                       onClick={() => {
                         deleteAuthor(author?.id);
                       }}
@@ -118,8 +118,8 @@ export const TableComponent = (props) => {
                       id={author.id}
                       refetch={refetch}
                       className={{
-                        modals: className.modals,
-                        buttons: className.buttons,
+                        modals: "bg-light text-dark",
+                        buttons: "btn btn-light",
                       }}
                     />
                   </div>

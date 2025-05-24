@@ -16,13 +16,6 @@ export default function page() {
   const token = Cookies.get("token");
   const queryClient = new QueryClient();
 
-  const [tableStyle, setTableStyle] = useState("table table-white");
-  const [tableButtonsStyle, setTableButtonsStyle] = useState("btn btn-light");
-  const [headerStyle, setHeaderStyle] = useState(
-    "navbar navbar-expand-lg navbar-light bg-white"
-  );
-  const [modalsTheme, setModalsTheme] = useState("bg-light text-dark");
-
   function handleTheme() {
     const themeButton = document.getElementById(
       "theme-button"
@@ -33,25 +26,9 @@ export default function page() {
     ) as HTMLInputElement;
 
     if (themeButton.checked) {
-      document.body.style.backgroundColor = "black";
-      document.body.style.color = "white";
-
-      currentTheme.innerText = "Dark";
-      setHeaderStyle("navbar navbar-expand-lg navbar-dark bg-black");
-      setTableStyle("table table-dark");
-      setTableButtonsStyle("btn btn-dark");
-      setModalsTheme("bg-dark text-white");
     }
 
     if (themeButton.checked == false) {
-      document.body.style.backgroundColor = "white";
-      document.body.style.color = "black";
-
-      currentTheme.innerText = "Light";
-      setHeaderStyle("navbar navbar-expand-lg navbar-light bg-white");
-      setTableStyle("table table-white");
-      setTableButtonsStyle("btn btn-light");
-      setModalsTheme("bg-light text-dark");
     }
   }
 
@@ -62,27 +39,8 @@ export default function page() {
   });
   return (
     <QueryClientProvider client={queryClient}>
-      <div>
-        <div className="form-check form-switch">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            role="switch"
-            id="theme-button"
-            onChange={handleTheme}
-          ></input>
-          <label className="form-check-label">
-            Change Theme: <span id="current-theme">Light</span>
-          </label>
-        </div>
-        <TableComponent
-          className={{
-            table: tableStyle,
-            header: headerStyle,
-            buttons: tableButtonsStyle,
-            modals: modalsTheme,
-          }}
-        />
+      <div className="">
+        <TableComponent />
       </div>
     </QueryClientProvider>
   );

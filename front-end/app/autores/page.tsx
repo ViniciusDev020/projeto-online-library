@@ -62,28 +62,14 @@ export default function page() {
   });
   return (
     <QueryClientProvider client={queryClient}>
-      <div>
-        <div className="form-check form-switch">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            role="switch"
-            id="theme-button"
-            onChange={handleTheme}
-          ></input>
-          <label className="form-check-label">
-            Change Theme: <span id="current-theme">Light</span>
-          </label>
-        </div>
-        <TableComponent
-          className={{
-            table: tableStyle,
-            header: headerStyle,
-            buttons: tableButtonsStyle,
-            modals: modalsTheme,
-          }}
-        />
-      </div>
+      <TableComponent
+        className={{
+          table: tableStyle,
+          header: headerStyle,
+          buttons: tableButtonsStyle,
+          modals: modalsTheme,
+        }}
+      />
     </QueryClientProvider>
   );
 }

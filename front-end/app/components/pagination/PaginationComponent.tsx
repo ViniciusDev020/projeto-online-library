@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function PaginationComponent(props) {
-  const { total, limit, setPage, page } = props;
+  const { total, limit, setPage, page, style } = props;
 
   const arrayValues: number[] = [];
   const pagesNumber = parseInt(total) / parseInt(limit);
@@ -11,7 +11,7 @@ export default function PaginationComponent(props) {
   }
 
   return (
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation">
       <ul className="pagination">
         <li className="page-item">
           <a
