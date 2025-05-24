@@ -30,7 +30,7 @@
     "uuid": "^11.1.0"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts",
+    "seed": "ts-node src/prisma/seed.ts",
     "schema": "src/prisma/schema.prisma"
   },
   "devDependencies": {
