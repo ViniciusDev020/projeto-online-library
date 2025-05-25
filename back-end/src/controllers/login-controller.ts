@@ -2,10 +2,10 @@ import type { Request, Response } from "express";
 import { login } from "../repository/usuarios.repository.ts";
 import jwt from "jsonwebtoken";
 
-export const JWT_SECRET = "your_jwt_secret";
+export const JWT_SECRET = process.env.JWT_SECRET || "fallback_secret";
 
-const generateToken = (userPassword: string): string => {
-  return jwt.sign({ userPassword }, JWT_SECRET, { expiresIn: "1h" }); // Token expires in 1 hour
+const generateToken = (userId: string): string => {
+  return jwt.sign({ userId: userId }, JWT_SECRET, { expiresIn: "1h" }); // Token expires in 1 hour
 };
 
 export async function realizarLogin(req: Request, res: Response) {
@@ -18,7 +18,7 @@ export async function realizarLogin(req: Request, res: Response) {
       return res.status(401).json({ message: "Credenciais inválidas!" });
     }
 
-    const token = generateToken(user.password);
+    const token = generateToken(userRep.id);
     res.json({ token });
   } catch (error) {
     res.status(500).send(error);
