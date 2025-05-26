@@ -5,7 +5,7 @@ import type { pagination } from "../types/pagination";
 
 const prisma = new PrismaClient();
 
-export async function listarLivros(
+export async function booksRefinedList(
   searchQuery: string,
   pagination: pagination
 ) {
@@ -98,7 +98,7 @@ export async function listarLivros(
   return { total, totalResults, items };
 }
 
-export async function livroPeloId(idLivro: string) {
+export async function bookById(idLivro: string) {
   return prisma.livro.findUnique({
     where: { id: idLivro },
     select: {
@@ -108,7 +108,7 @@ export async function livroPeloId(idLivro: string) {
   });
 }
 
-export async function removerLivro(idLivro: string) {
+export async function deleteBookById(idLivro: string) {
   return prisma.livro.delete({
     where: {
       id: idLivro,
@@ -116,7 +116,7 @@ export async function removerLivro(idLivro: string) {
   });
 }
 
-export async function criarLivro(livro: Livro) {
+export async function createBook(livro: Livro) {
   return prisma.livro.create({
     data: {
       id: uuidv4(),
@@ -127,14 +127,7 @@ export async function criarLivro(livro: Livro) {
   });
 }
 
-export async function vincularAutores(
-  idLivro: string,
-  autores: { id: string; name: string }[]
-) {
-  return prisma.author.updateMany;
-}
-
-export async function editarLivro(livro: Livro, idLivro: string) {
+export async function updateBookById(livro: Livro, idLivro: string) {
   return prisma.livro.update({
     where: {
       id: idLivro,
@@ -147,4 +140,4 @@ export async function editarLivro(livro: Livro, idLivro: string) {
   });
 }
 
-export default listarLivros;
+export default booksRefinedList;

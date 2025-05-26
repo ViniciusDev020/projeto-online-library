@@ -1,14 +1,14 @@
 import {
-  UsuarioPeloId,
-  criarUsuario,
-  editarUsuario,
-  listarUsuarios,
-  removerUsuario,
+  userById,
+  createUser,
+  updateUserById,
+  usersRefinedList,
+  deleteUserById,
 } from "../repository/usuarios.repository.ts";
 import type { Request, Response } from "express";
 
 export async function listAllUsersService(req: Request, res: Response) {
-  const response = await listarUsuarios();
+  const response = await usersRefinedList();
 
   return response;
 }
@@ -17,7 +17,7 @@ export async function listUserByIdService(req: Request, res: Response) {
   const params = req.params;
   const id = params.id;
 
-  const response = await UsuarioPeloId(id);
+  const response = await userById(id);
 
   return response;
 }
@@ -27,7 +27,7 @@ export async function deleteUserByIdService(req: Request, res: Response) {
   const id: string = params.id;
   console.log(id);
 
-  const response = await removerUsuario(id);
+  const response = await deleteUserById(id);
 
   return response;
 }
@@ -35,7 +35,7 @@ export async function deleteUserByIdService(req: Request, res: Response) {
 export async function createUserService(req: Request, res: Response) {
   const livro = req.body;
 
-  const response = await criarUsuario(livro);
+  const response = await createUser(livro);
 
   return response;
 }
@@ -44,18 +44,13 @@ export async function updateUserByIdService(req: Request, res: Response) {
   const params = req.params;
   const id = params.id;
   const user = req.body;
-  const usuarioExistente = await UsuarioPeloId(id);
+  const existingUser = await userById(id);
 
-  if (user.name && usuarioExistente != null) {
-    usuarioExistente.name = user.name;
-  }
-  if (user.email && usuarioExistente != null) {
-    usuarioExistente.email = user.email;
-  }
+  if (existingUser) {
+    const editObject = Object.assign(existingUser, user);
 
-  if (usuarioExistente) {
-    const response = await editarUsuario(usuarioExistente, id);
+    const response = await updateUserById(editObject, id);
 
-    response;
+    return response;
   }
 }

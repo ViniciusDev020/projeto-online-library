@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
-export async function listarUsuarios() {
+export async function usersRefinedList() {
   return prisma.user.findMany();
 }
 
@@ -16,7 +16,7 @@ type user = {
   perfil: string;
 };
 
-export async function UsuarioPeloId(idUser: string) {
+export async function userById(idUser: string) {
   return prisma.user.findUnique({
     where: { id: idUser },
     select: {
@@ -27,13 +27,13 @@ export async function UsuarioPeloId(idUser: string) {
   });
 }
 
-export async function removerUsuario(idUser: string) {
+export async function deleteUserById(idUser: string) {
   return prisma.user.delete({
     where: { id: idUser },
   });
 }
 
-export async function criarUsuario(user: user) {
+export async function createUser(user: user) {
   const saltRounds = 10;
 
   const hash = await bcrypt.hash(user.password, saltRounds);
@@ -49,7 +49,7 @@ export async function criarUsuario(user: user) {
   });
 }
 
-export async function editarUsuario(user: user, idUser: string) {
+export async function updateUserById(user: user, idUser: string) {
   return prisma.user.update({
     where: { id: idUser },
     data: {
@@ -83,4 +83,4 @@ export async function login(email: string, password: string) {
   }
 }
 
-export default listarUsuarios;
+export default usersRefinedList;

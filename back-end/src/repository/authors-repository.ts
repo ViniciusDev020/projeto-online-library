@@ -11,7 +11,7 @@ export type Author = {
   nacionality: string;
 };
 
-export async function listarAutores(
+export async function authorsRefinedList(
   searchQuery: string,
   pagination: pagination
 ) {
@@ -102,24 +102,24 @@ export async function listarAutores(
   return { total, totalResults, items };
 }
 
-export async function autorPeloId(idLivro: string) {
+export async function authorById(authorId: string) {
   return prisma.author.findUnique({
-    where: { id: idLivro },
+    where: { id: authorId },
     select: {
       name: true,
     },
   });
 }
 
-export async function removerAutor(idLivro: string) {
+export async function deleteAuthorById(authorId: string) {
   return prisma.author.delete({
     where: {
-      id: idLivro,
+      id: authorId,
     },
   });
 }
 
-export async function criarAutor(author: Author) {
+export async function createAuthor(author: Author) {
   return prisma.author.create({
     data: {
       id: uuidv4(),
@@ -130,13 +130,15 @@ export async function criarAutor(author: Author) {
   });
 }
 
-export async function editarAutor(livro: Author, idLivro: string) {
+export async function updateAuthorById(author: Author, authorId: string) {
   return prisma.author.update({
     where: {
-      id: idLivro,
+      id: authorId,
     },
     data: {
-      name: livro.name,
+      name: author.name,
+      age: author.age,
+      nacionality: author.nacionality,
     },
   });
 }

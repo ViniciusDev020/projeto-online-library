@@ -1,10 +1,10 @@
-import { UsuarioPeloId } from "../repository/usuarios.repository.ts";
+import { userById } from "../repository/usuarios.repository.ts";
 
 async function verifyRole(userId?: string) {
   if (userId) {
-    const userById = await UsuarioPeloId(userId);
+    const user = await userById(userId);
 
-    return userById?.perfil;
+    return user?.perfil;
   }
   return "";
 }

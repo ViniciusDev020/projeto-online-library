@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../controllers/login-controller.ts";
 import verifyRole from "./verifyRole.ts";
 
-async function autenticacao(
+async function authentication(
   req: any,
   res: any,
   next: any,
@@ -28,4 +28,4 @@ async function autenticacao(
   });
 }
 
-export default autenticacao;
+export default authentication;

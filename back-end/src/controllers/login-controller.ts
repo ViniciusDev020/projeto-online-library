@@ -8,7 +8,7 @@ const generateToken = (userId: string): string => {
   return jwt.sign({ userId: userId }, JWT_SECRET, { expiresIn: "1h" }); // Token expires in 1 hour
 };
 
-export async function realizarLogin(req: Request, res: Response) {
+export async function handleLogin(req: Request, res: Response) {
   try {
     const user = req.body;
 

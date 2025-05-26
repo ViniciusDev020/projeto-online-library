@@ -6,14 +6,14 @@ import {
   listAuthorById,
   updateAuthorById,
 } from "../controllers/autores-controller.ts";
-import autenticacao from "../middlewares/autenticacao.ts";
+import authentication from "../middlewares/autenticacao.ts";
 
 const AutoresRouter = Router();
 
 AutoresRouter.get(
   "/",
   (req, res, next) => {
-    autenticacao(req, res, next, ["usuario", "admin"]);
+    authentication(req, res, next, ["usuario", "admin"]);
   },
   (req, res) => {
     listAllAuthors(req, res);
@@ -23,7 +23,7 @@ AutoresRouter.get(
 AutoresRouter.get(
   "/:id",
   (req, res, next) => {
-    autenticacao(req, res, next, ["usuario", "admin"]);
+    authentication(req, res, next, ["usuario", "admin"]);
   },
   (req, res) => {
     listAuthorById(req, res);
@@ -33,7 +33,7 @@ AutoresRouter.get(
 AutoresRouter.delete(
   "/:id",
   (req, res, next) => {
-    autenticacao(req, res, next, ["admin"]);
+    authentication(req, res, next, ["admin"]);
   },
   (req, res) => {
     deleteAuthorById(req, res);
@@ -43,7 +43,7 @@ AutoresRouter.delete(
 AutoresRouter.post(
   "/",
   (req, res, next) => {
-    autenticacao(req, res, next, ["usuario", "admin"]);
+    authentication(req, res, next, ["usuario", "admin"]);
   },
   (req, res) => {
     createAuthor(req, res);
@@ -53,7 +53,7 @@ AutoresRouter.post(
 AutoresRouter.put(
   "/:id",
   (req, res, next) => {
-    autenticacao(req, res, next, ["admin"]);
+    authentication(req, res, next, ["admin"]);
   },
   (req, res) => {
     updateAuthorById(req, res);

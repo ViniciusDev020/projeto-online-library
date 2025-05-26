@@ -17,7 +17,7 @@ export async function listAllBooks(req: Request, res: Response) {
     limit: parseInt(limit),
   };
 
-  const response = await listAllBooksService(req, res, searchQuery, pagination);
+  const response = await listAllBooksService(searchQuery, pagination);
 
   return res.json(response);
 }

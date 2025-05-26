@@ -18,12 +18,7 @@ export async function listAllAuthors(req: Request, res: Response) {
     limit: parseInt(limit),
   };
 
-  const response = await listAllAuthorsService(
-    req,
-    res,
-    searchQuery,
-    pagination
-  );
+  const response = await listAllAuthorsService(searchQuery, pagination);
 
   return res.json(response);
 }

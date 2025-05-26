@@ -1,10 +1,10 @@
 import Router from "express";
-import { realizarLogin } from "../controllers/login-controller.ts";
+import { handleLogin } from "../controllers/login-controller.ts";
 
 const login = Router();
 
 login.post("/", async (req, res) => {
-  realizarLogin(req, res);
+  handleLogin(req, res);
 });
 
 export default login;
