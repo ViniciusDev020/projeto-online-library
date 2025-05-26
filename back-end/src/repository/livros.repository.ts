@@ -61,6 +61,9 @@ export async function booksRefinedList(
             },
           },
         },
+        orderBy: {
+          name: "asc",
+        },
       }),
     ]);
 
