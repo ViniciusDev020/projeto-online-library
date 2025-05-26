@@ -47,6 +47,7 @@ function EditForm(props) {
 
     const editAuthor = async () => {
       const res = await editarAutor(objectWithoutEmptyProperties, token);
+      handleClose();
 
       if (res.status == 401) {
         setModalMessage("Não foi possível editar o autor!");

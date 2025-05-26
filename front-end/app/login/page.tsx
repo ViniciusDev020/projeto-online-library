@@ -10,7 +10,10 @@ const Login = () => {
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
   />;
   return (
-    <div className="title">
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{ marginLeft: "120px" }}
+    >
       <LoginForm></LoginForm>
     </div>
   );
