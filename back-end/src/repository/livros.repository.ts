@@ -62,7 +62,9 @@ export async function booksRefinedList(
           },
         },
         orderBy: {
-          name: "asc",
+          author: {
+            name: "asc",
+          },
         },
       }),
     ]);
@@ -93,7 +95,9 @@ export async function booksRefinedList(
       take: limit,
       skip: offset,
       orderBy: {
-        name: "asc",
+        author: {
+          name: "asc",
+        },
       },
     }),
   ]);
