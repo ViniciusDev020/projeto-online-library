@@ -16,6 +16,7 @@ export default function PaginationComponent(props) {
         <li className="page-item">
           <a
             className="page-link"
+            style={{ color: "black" }}
             href="#"
             onClick={() => {
               if (page >= 2) {
@@ -23,14 +24,20 @@ export default function PaginationComponent(props) {
               }
             }}
           >
-            Previous
+            Anterior
           </a>
         </li>
         {arrayValues.map((i) => {
+          const style = {
+            color: "black",
+            backgroundColor: i == page ? "lightgray" : "",
+          };
+
           return (
             <li className="page-item" key={i}>
               <a
                 className="page-link"
+                style={style}
                 href="#"
                 onClick={() => {
                   setPage(i);
@@ -44,6 +51,7 @@ export default function PaginationComponent(props) {
         <li className="page-item">
           <a
             className="page-link"
+            style={{ color: "black" }}
             href="#"
             onClick={() => {
               if (page < arrayValues.length) {
@@ -51,7 +59,7 @@ export default function PaginationComponent(props) {
               }
             }}
           >
-            Next
+            Próximo
           </a>
         </li>
       </ul>
