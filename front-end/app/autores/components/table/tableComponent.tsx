@@ -8,8 +8,6 @@ import NavigationBar from "../../../components/navigationBar/NavigationBar";
 import { LoadingComponent } from "../../../components/loading/LoadingComponent";
 import useFetchAuthors from "../../../hooks/useAuthors/fetch-authors";
 import Cookies from "js-cookie";
-import { Button } from "react-bootstrap";
-import { FaFilter } from "react-icons/fa";
 import { Author } from "../../../types/tipoAutor";
 import { deletarAutor } from "../../../api/routes/autores";
 import SuccessModal from "../../../components/modals/successModal";

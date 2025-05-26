@@ -4,3 +4,10 @@ export type Author = {
   age: number;
   nacionality: string;
 };
+
+export type AuthorUpdate = {
+  id?: string;
+  name?: string;
+  age?: string;
+  nacionality?: string;
+};

@@ -1,5 +1,5 @@
 import { pagination } from "../../../types/pagination";
-import { Author } from "../../../types/tipoAutor";
+import { Author, AuthorUpdate } from "../../../types/tipoAutor";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -36,7 +36,7 @@ export async function deletarAutor(id: string, token?: string) {
   return req;
 }
 
-export async function editarAutor(autor: any, token?: string) {
+export async function editarAutor(autor: AuthorUpdate, token?: string) {
   const req = await fetch(`${apiUrl}/autoresCadastrados/${autor.id}`, {
     method: "PUT",
     body: JSON.stringify(autor),

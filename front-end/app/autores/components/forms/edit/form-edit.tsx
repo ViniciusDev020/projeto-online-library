@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { EditButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import SuccessModal from "../../../../components/modals/successModal";
-import { Author } from "../../../../types/tipoAutor";
+import { Author, AuthorUpdate } from "../../../../types/tipoAutor";
 import { editarAutor } from "../../../../api/routes/autores";
 
 function EditForm(props) {
@@ -34,11 +34,11 @@ function EditForm(props) {
 
     const token = Cookies.get("token");
 
-    const newAuthor: Author = {
+    const newAuthor: AuthorUpdate = {
       id: id,
       name: name.value,
       nacionality: nacionality.value,
-      age: parseInt(age.value),
+      age: age.value,
     };
 
     const objectWithoutEmptyProperties = Object.fromEntries(
@@ -46,6 +46,7 @@ function EditForm(props) {
     );
 
     const editAuthor = async () => {
+      console.log(objectWithoutEmptyProperties);
       const res = await editarAutor(objectWithoutEmptyProperties, token);
 
       if (res.status == 401) {
