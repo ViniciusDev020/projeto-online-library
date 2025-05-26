@@ -43,6 +43,7 @@ function LoginForm(props) {
           height: "100vh",
           justifyItems: "center",
           paddingTop: "50px",
+          marginLeft: "120px",
         }}
       >
         <div style={{ width: "400px", marginLeft: "600px", color: "black" }}>
