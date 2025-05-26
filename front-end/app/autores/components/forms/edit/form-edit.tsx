@@ -46,7 +46,6 @@ function EditForm(props) {
     );
 
     const editAuthor = async () => {
-      console.log(objectWithoutEmptyProperties);
       const res = await editarAutor(objectWithoutEmptyProperties, token);
 
       if (res.status == 401) {

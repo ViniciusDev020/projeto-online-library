@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { login } from "../../../../api/routes/livros";
+import { registerUser } from "../../../../api/routes/livros";
 import { useRouter } from "next/navigation";
+import { userType } from "../../../../types/tipoUser";
 
-function LoginForm(props) {
+function RegisterForm(props) {
   const [openModal, setOpenModal] = useState(false);
   const [openWarningModal, setOpenWarningModal] = useState(false);
   const handleClose = () => {
@@ -14,26 +15,24 @@ function LoginForm(props) {
     setOpenModal(true);
   };
   const router = useRouter();
-  async function handleSubmit(method) {
+
+  async function handleSubmit() {
+    const name = document.getElementById("name") as HTMLInputElement;
     const email = document.getElementById("email") as HTMLInputElement;
     const password = document.getElementById("password") as HTMLInputElement;
-    const message = document.getElementById("errorMessage") as HTMLElement;
+    const profile = document.getElementById("profile") as HTMLInputElement;
 
-    const userCredentials = {
+    const userCredentials: userType = {
+      name: name.value,
       email: email.value,
       password: password.value,
+      profile: profile.value,
     };
 
-    const res = await login(userCredentials.email, userCredentials.password);
-
-    if (res.token != null) {
-      document.cookie = `token=${res.token}; path=/`;
-      router.push("/livros");
-    } else {
-      setOpenWarningModal(true);
-      message.textContent = res.message;
-    }
+    const res = await registerUser(userCredentials);
   }
+
+  const options = ["usuario", "admin"];
 
   return (
     <>
@@ -46,8 +45,12 @@ function LoginForm(props) {
         }}
       >
         <div style={{ width: "400px", marginLeft: "600px", color: "black" }}>
-          <h2>Realizar Login</h2>
+          <h2>Realizar Cadastro</h2>
           <Form className="">
+            <Form.Group className="mb-3">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control type="text" placeholder="" name="name" id="name" />
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -66,17 +69,35 @@ function LoginForm(props) {
                 id="password"
               />
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Perfil de Acesso</Form.Label>
+              <Form.Select name="profile" required={true} id="profile">
+                {options.map((i: string) => {
+                  if (i)
+                    return (
+                      <option value={i} key={i}>
+                        {i}
+                      </option>
+                    );
+                })}
+              </Form.Select>
+              <span id="message"></span>
+            </Form.Group>
           </Form>
           <Button
             variant="secondary"
             style={{ marginRight: "10px" }}
-            onClick={() => {
-              router.push("/register");
-            }}
+            onClick={handleSubmit}
           >
             Cadastre-se
           </Button>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => {
+              router.push("/login");
+            }}
+          >
             Login
           </Button>
           <div>
@@ -115,4 +136,4 @@ function LoginForm(props) {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;

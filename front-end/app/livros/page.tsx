@@ -1,6 +1,6 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { TableComponent } from "./components/table/tableComponent";
@@ -16,22 +16,6 @@ export default function page() {
   const token = Cookies.get("token");
   const queryClient = new QueryClient();
 
-  function handleTheme() {
-    const themeButton = document.getElementById(
-      "theme-button"
-    ) as HTMLInputElement;
-
-    const currentTheme = document.getElementById(
-      "current-theme"
-    ) as HTMLInputElement;
-
-    if (themeButton.checked) {
-    }
-
-    if (themeButton.checked == false) {
-    }
-  }
-
   useEffect(() => {
     if (!token) {
       router.push("/login");
@@ -39,7 +23,7 @@ export default function page() {
   });
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="">
+      <div>
         <TableComponent />
       </div>
     </QueryClientProvider>
