@@ -107,36 +107,6 @@ function RegisterForm(props) {
           >
             Login
           </Button>
-          <div>
-            <dialog
-              open={openWarningModal}
-              style={{
-                width: "400px",
-                height: "40px",
-                backgroundColor: "lightyellow",
-                border: "none",
-                marginTop: "10px",
-                padding: "5px",
-              }}
-            >
-              <span
-                id="errorMessage"
-                style={{
-                  color: "red",
-                  display: "inline-block",
-                  marginRight: "193px",
-                }}
-              ></span>
-              <button
-                style={{ fontSize: "12px", border: "none" }}
-                onClick={() => {
-                  setOpenWarningModal(false);
-                }}
-              >
-                X
-              </button>
-            </dialog>
-          </div>
         </div>
       </div>
       <div>

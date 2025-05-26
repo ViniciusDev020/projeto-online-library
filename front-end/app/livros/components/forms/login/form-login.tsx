@@ -5,16 +5,10 @@ import { login } from "../../../../api/routes/livros";
 import { useRouter } from "next/navigation";
 
 function LoginForm(props) {
-  const [openModal, setOpenModal] = useState(false);
   const [openWarningModal, setOpenWarningModal] = useState(false);
-  const handleClose = () => {
-    setOpenModal(false);
-  };
-  const handleOpen = () => {
-    setOpenModal(true);
-  };
+
   const router = useRouter();
-  async function handleSubmit(method) {
+  async function handleSubmit() {
     const email = document.getElementById("email") as HTMLInputElement;
     const password = document.getElementById("password") as HTMLInputElement;
     const message = document.getElementById("errorMessage") as HTMLElement;
@@ -66,6 +60,17 @@ function LoginForm(props) {
               />
             </Form.Group>
           </Form>
+          <div>
+            <span
+              id="errorMessage"
+              style={{
+                color: "red",
+                display: "inline-block",
+                marginRight: "193px",
+                marginBottom: "10px",
+              }}
+            ></span>
+          </div>
           <Button
             variant="secondary"
             style={{ marginRight: "10px" }}
@@ -78,36 +83,6 @@ function LoginForm(props) {
           <Button variant="primary" type="submit" onClick={handleSubmit}>
             Login
           </Button>
-          <div>
-            <dialog
-              open={openWarningModal}
-              style={{
-                width: "400px",
-                height: "40px",
-                backgroundColor: "lightyellow",
-                border: "none",
-                marginTop: "10px",
-                padding: "5px",
-              }}
-            >
-              <span
-                id="errorMessage"
-                style={{
-                  color: "red",
-                  display: "inline-block",
-                  marginRight: "193px",
-                }}
-              ></span>
-              <button
-                style={{ fontSize: "12px", border: "none" }}
-                onClick={() => {
-                  setOpenWarningModal(false);
-                }}
-              >
-                X
-              </button>
-            </dialog>
-          </div>
         </div>
       </div>
     </>
