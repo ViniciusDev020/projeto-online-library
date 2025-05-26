@@ -8,34 +8,64 @@ import {
 import type { Request, Response } from "express";
 
 export async function listAllUsers(req: Request, res: Response) {
-  const response = await listAllUsersService(req, res);
+  try {
+    const response = await listAllUsersService(req, res);
 
-  return res.json(response);
+    return res.json(response);
+  } catch (error: any) {
+    res
+      .status(400)
+      .json({ message: `Falha ao listar usuários: ${error.message}` });
+  }
 }
 
 export async function listUserById(req: Request, res: Response) {
-  const response = await listUserByIdService(req, res);
+  try {
+    const response = await listUserByIdService(req, res);
 
-  return res.json(response);
+    return res.json(response);
+  } catch (error: any) {
+    res
+      .status(400)
+      .json({ message: `Falha ao listar usuário: ${error.message}` });
+  }
 }
 
 export async function deleteUserById(req: Request, res: Response) {
-  const response = await deleteUserByIdService(req, res);
-  response;
+  try {
+    const response = await deleteUserByIdService(req, res);
+    response;
 
-  res.send("USUÁRIO DELETADO COM SUCESSO!");
+    res.status(200).json({ message: "Usuário deletado com sucesso!" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Falha ao deletar usuário: ${error.message}` });
+  }
 }
 
 export async function createUser(req: any, res: Response) {
-  const response = await createUserService(req, req);
-  response;
+  try {
+    const response = await createUserService(req, req);
+    response;
 
-  res.send("USUÁRIO CRIADO COM SUCESSO!");
+    res.status(201).json({ message: `Usuário criado com sucesso! `, response });
+  } catch (error: any) {
+    return res
+      .status(400)
+      .json({ message: `Falha ao criar usuário: ${error.message}` });
+  }
 }
 
 export async function updateUserById(req: Request, res: Response) {
-  const response = await updateUserByIdService(req, res);
-  response;
+  try {
+    const response = await updateUserByIdService(req, res);
+    response;
 
-  res.send("USUÁRIO EDITADO COM SUCESSO!");
+    res.status(200).json({ message: "Usuário editado com sucesso!" });
+  } catch (error: any) {
+    return res
+      .status(400)
+      .json({ message: `Falha ao criar usuário: ${error.message}` });
+  }
 }

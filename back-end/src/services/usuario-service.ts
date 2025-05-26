@@ -4,6 +4,7 @@ import {
   updateUserById,
   usersRefinedList,
   deleteUserById,
+  userByEmail,
 } from "../repository/usuarios.repository.ts";
 import type { Request, Response } from "express";
 
@@ -33,9 +34,15 @@ export async function deleteUserByIdService(req: Request, res: Response) {
 
 export async function createUserService(req: Request, res: Response) {
   const user = req.body;
-  const response = await createUser(user);
+  const userMail = await userByEmail(req.body.email);
 
-  return response;
+  if (!userMail) {
+    const response = await createUser(user);
+
+    return response;
+  } else {
+    throw new Error("Email já existe!");
+  }
 }
 
 export async function updateUserByIdService(req: Request, res: Response) {

@@ -27,6 +27,17 @@ export async function userById(idUser: string) {
   });
 }
 
+export async function userByEmail(email: string) {
+  return prisma.user.findUnique({
+    where: { id: email },
+    select: {
+      name: true,
+      email: true,
+      perfil: true,
+    },
+  });
+}
+
 export async function deleteUserById(idUser: string) {
   return prisma.user.delete({
     where: { id: idUser },
