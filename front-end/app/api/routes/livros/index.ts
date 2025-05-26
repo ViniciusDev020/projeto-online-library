@@ -91,7 +91,9 @@ export async function registerUser(userCredentials: userType) {
     },
   });
 
-  return req;
+  const res = req.json();
+
+  return { response: res, status: req.status };
 }
 
 export default listarLivros;

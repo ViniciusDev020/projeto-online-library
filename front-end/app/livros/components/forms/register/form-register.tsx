@@ -7,7 +7,6 @@ import { userType } from "../../../../types/tipoUser";
 import SuccessModal from "../../../../components/modals/successModal";
 
 function RegisterForm(props) {
-  const [openWarningModal, setOpenWarningModal] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
@@ -32,11 +31,13 @@ function RegisterForm(props) {
 
     const res = await registerUser(userCredentials);
 
-    if (res.status == 200) {
+    if (res.status == 201) {
       setModalMessage("Usuário Cadastrado com sucesso!");
       setOpenSuccessModal(true);
-    } else {
-      setModalMessage("Falha ao cadastrar usuário!");
+    }
+    if (res.status == 400) {
+      setModalMessage("Email já Cadastrado!");
+      setOpenSuccessModal(true);
     }
   }
 
@@ -114,7 +115,6 @@ function RegisterForm(props) {
           show={openSuccessModal}
           hideSuccessModal={() => {
             handleCloseSuccess();
-            router.push("/login");
           }}
           message={modalMessage}
         ></SuccessModal>

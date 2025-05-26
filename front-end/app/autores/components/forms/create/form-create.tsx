@@ -57,7 +57,7 @@ function CreateForm(props) {
         setModalMessage("Não foi possível criar o autor!");
         setOpenSuccessModal(true);
       }
-      if (res.status == 200) {
+      if (res.status == 201) {
         setModalMessage("O autor foi criado com sucesso!");
         setOpenSuccessModal(true);
       }

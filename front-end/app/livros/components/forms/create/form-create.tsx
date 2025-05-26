@@ -62,7 +62,7 @@ function CreateForm(props) {
         setModalMessage("Não foi possível criar o livro!");
         setOpenSuccessModal(true);
       }
-      if (res.status == 200) {
+      if (res.status == 201) {
         setModalMessage("O livro foi criado com sucesso!");
         setOpenSuccessModal(true);
       }
