@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export type Author = {
   id: string;
   name: string;
-  age: number;
+  age: string;
   nacionality: string;
 };
 
@@ -107,6 +107,8 @@ export async function authorById(authorId: string) {
     where: { id: authorId },
     select: {
       name: true,
+      age: true,
+      nacionality: true,
     },
   });
 }
@@ -124,7 +126,7 @@ export async function createAuthor(author: Author) {
     data: {
       id: uuidv4(),
       name: author.name,
-      age: author.age,
+      age: parseInt(author.age),
       nacionality: author.nacionality,
     },
   });
@@ -137,7 +139,7 @@ export async function updateAuthorById(author: Author, authorId: string) {
     },
     data: {
       name: author.name,
-      age: author.age,
+      age: parseInt(author.age),
       nacionality: author.nacionality,
     },
   });
