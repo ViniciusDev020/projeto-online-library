@@ -25,7 +25,6 @@ export async function listUserByIdService(req: Request, res: Response) {
 export async function deleteUserByIdService(req: Request, res: Response) {
   const params = req.params;
   const id: string = params.id;
-  console.log(id);
 
   const response = await deleteUserById(id);
 
@@ -33,9 +32,8 @@ export async function deleteUserByIdService(req: Request, res: Response) {
 }
 
 export async function createUserService(req: Request, res: Response) {
-  const livro = req.body;
-
-  const response = await createUser(livro);
+  const user = req.body;
+  const response = await createUser(user);
 
   return response;
 }

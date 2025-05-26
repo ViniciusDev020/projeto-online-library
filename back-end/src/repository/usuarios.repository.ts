@@ -13,7 +13,7 @@ type user = {
   name: string;
   email: string;
   password: string;
-  perfil: string;
+  profile: string;
 };
 
 export async function userById(idUser: string) {
@@ -44,7 +44,7 @@ export async function createUser(user: user) {
       name: user.name,
       email: user.email,
       password: hash,
-      perfil: user.perfil,
+      perfil: user.profile,
     },
   });
 }

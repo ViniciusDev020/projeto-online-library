@@ -78,6 +78,24 @@ async function main() {
         name: "Marcela Lopez",
         nacionality: "Brasileiro",
       },
+      {
+        id: "238",
+        age: 23,
+        name: "Shirley Alcantara",
+        nacionality: "Brasileiro",
+      },
+      {
+        id: "239",
+        age: 23,
+        name: "Edinaldo Pereira",
+        nacionality: "Brasileiro",
+      },
+      {
+        id: "240",
+        age: 23,
+        name: "Paulo Gonçalves",
+        nacionality: "Brasileiro",
+      },
     ],
   });
 
