@@ -13,6 +13,7 @@ function EditForm(props) {
   const { refetch } = props;
   const [openModal, setOpenModal] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleClose = () => {
     setOpenModal(false);
@@ -44,9 +45,20 @@ function EditForm(props) {
       Object.entries(newAuthor).filter(([p, v]) => v != "")
     );
 
-    editarAutor(objectWithoutEmptyProperties, token);
-    setOpenModal(false);
-    setOpenSuccessModal(true);
+    const editAuthor = async () => {
+      const res = await editarAutor(objectWithoutEmptyProperties, token);
+
+      if (res.status == 401) {
+        setModalMessage("Não foi possível editar o autor!");
+        setOpenSuccessModal(true);
+      }
+      if (res.status == 200) {
+        setModalMessage("O autor foi editado com sucesso!");
+        setOpenSuccessModal(true);
+      }
+    };
+
+    editAuthor();
     refetch();
   }
   return (
@@ -78,7 +90,7 @@ function EditForm(props) {
                 type="text"
                 placeholder=""
                 name="nacionality"
-                id="nacionalitys"
+                id="nacionality"
                 required
               />
             </Form.Group>
@@ -116,7 +128,7 @@ function EditForm(props) {
           hideSuccessModal={() => {
             handleCloseSuccess();
           }}
-          message="O autor foi editado com sucesso!"
+          message={modalMessage}
         ></SuccessModal>
       </div>
     </>

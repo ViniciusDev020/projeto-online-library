@@ -18,6 +18,8 @@ import PaginationComponent from "../../../components/pagination/PaginationCompon
 export const TableComponent = (props) => {
   const [searchParams, setSearchParams] = useState("");
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const { data, refetch, isLoading } = useFetchAuthors(searchParams, {
@@ -29,8 +31,16 @@ export const TableComponent = (props) => {
 
   const deleteAuthor = async (id?: string) => {
     if (id) {
-      await deletarAutor(id, token);
-      setOpenSuccessModal(true);
+      const res = await deletarAutor(id, token);
+
+      if (res.status == 401) {
+        setModalMessage("Não foi possível deletar o autor!");
+        setOpenSuccessModal(true);
+      }
+      if (res.status == 200) {
+        setModalMessage("O autor foi deletado com sucesso!");
+        setOpenSuccessModal(true);
+      }
       refetch();
     }
   };
@@ -136,7 +146,7 @@ export const TableComponent = (props) => {
           hideSuccessModal={() => {
             handleCloseSuccess();
           }}
-          message="O autor foi deletado com sucesso!"
+          message={modalMessage}
         ></SuccessModal>
       </div>
       <PaginationComponent

@@ -11,6 +11,7 @@ import { criarNovoAutor } from "../../../../api/routes/autores";
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [validated, setValidate] = useState(false);
   const { refetch, className } = props;
   const token = Cookies.get("token");
@@ -49,7 +50,23 @@ function CreateForm(props) {
       nacionality: nacionality.value,
     };
 
-    if (validated) criarNovoAutor(newAuthor, token);
+    const createAuthor = async () => {
+      const res = await criarNovoAutor(newAuthor, token);
+
+      if (res.status == 401) {
+        setModalMessage("Não foi possível criar o autor!");
+        setOpenSuccessModal(true);
+      }
+      if (res.status == 200) {
+        setModalMessage("O autor foi criado com sucesso!");
+        setOpenSuccessModal(true);
+      }
+    };
+
+    if (validated) {
+      createAuthor();
+    }
+
     setOpenModal(false);
     setOpenSuccessModal(true);
     refetch();
@@ -139,7 +156,7 @@ function CreateForm(props) {
           hideSuccessModal={() => {
             handleCloseSuccess();
           }}
-          message="O autor foi criado com sucesso!"
+          message={modalMessage}
         ></SuccessModal>
       </div>
     </>

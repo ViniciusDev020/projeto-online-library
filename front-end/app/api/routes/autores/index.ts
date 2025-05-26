@@ -32,6 +32,8 @@ export async function deletarAutor(id: string, token?: string) {
       Authorization: "Bearer " + token,
     },
   });
+
+  return req;
 }
 
 export async function editarAutor(autor: any, token?: string) {
@@ -43,6 +45,8 @@ export async function editarAutor(autor: any, token?: string) {
       "Content-Type": "application/json",
     },
   });
+
+  return req;
 }
 
 export async function criarNovoAutor(autor: Author, token?: string) {
@@ -54,4 +58,6 @@ export async function criarNovoAutor(autor: Author, token?: string) {
       "Content-Type": "application/json",
     },
   });
+
+  return req;
 }

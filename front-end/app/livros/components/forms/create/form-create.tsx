@@ -13,6 +13,7 @@ import { criarNovoLivro } from "../../../../api/routes/livros";
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [validated, setValidate] = useState(false);
   const token = Cookies.get("token");
 
@@ -48,16 +49,29 @@ function CreateForm(props) {
     const desc = document.getElementById("desc") as HTMLInputElement;
     const author = document.getElementById("author") as HTMLSelectElement;
 
-    console.log(author.selectedOptions[0].value);
     const newBook: BookCreate = {
       name: name?.value,
       description: desc?.value,
       authorId: author.selectedOptions[0].value,
     };
 
-    if (validated) criarNovoLivro(newBook, token);
+    const createBook = async () => {
+      const res = await criarNovoLivro(newBook, token);
+
+      if (res.status == 401) {
+        setModalMessage("Não foi possível criar o livro!");
+        setOpenSuccessModal(true);
+      }
+      if (res.status == 200) {
+        setModalMessage("O livro foi criado com sucesso!");
+        setOpenSuccessModal(true);
+      }
+    };
+    if (validated) {
+      createBook();
+    }
+
     handleClose();
-    setOpenSuccessModal(true);
     refetch();
   }
 
@@ -174,7 +188,7 @@ function CreateForm(props) {
           hideSuccessModal={() => {
             handleCloseSuccess();
           }}
-          message="O livro foi criado com sucesso!"
+          message={modalMessage}
         ></SuccessModal>
       </div>
     </>

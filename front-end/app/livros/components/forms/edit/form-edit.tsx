@@ -12,6 +12,7 @@ function EditForm(props) {
   const { id, className } = props;
   const { refetch } = props;
   const [openModal, setOpenModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   const handleClose = () => {
@@ -39,10 +40,21 @@ function EditForm(props) {
       Object.entries(newBook).filter(([p, v]) => v != "")
     );
 
-    editarLivro(objectWithoutEmptyProperties, token);
-    handleClose();
+    const editBook = async () => {
+      const res = await editarLivro(objectWithoutEmptyProperties, token);
+      handleClose();
 
-    setOpenSuccessModal(true);
+      if (res.status == 401) {
+        setModalMessage("Não foi possível editar o livro!");
+        setOpenSuccessModal(true);
+      }
+      if (res.status == 200) {
+        setModalMessage("O livro foi editado com sucesso!");
+        setOpenSuccessModal(true);
+      }
+    };
+
+    editBook();
     refetch();
   }
   return (
@@ -95,7 +107,7 @@ function EditForm(props) {
           hideSuccessModal={() => {
             handleCloseSuccess();
           }}
-          message="O livro foi editado com sucesso!"
+          message={modalMessage}
         ></SuccessModal>
       </div>
     </>
