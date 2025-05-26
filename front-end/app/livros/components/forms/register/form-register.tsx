@@ -4,16 +4,17 @@ import Form from "react-bootstrap/Form";
 import { registerUser } from "../../../../api/routes/livros";
 import { useRouter } from "next/navigation";
 import { userType } from "../../../../types/tipoUser";
+import SuccessModal from "../../../../components/modals/successModal";
 
 function RegisterForm(props) {
-  const [openModal, setOpenModal] = useState(false);
   const [openWarningModal, setOpenWarningModal] = useState(false);
-  const handleClose = () => {
-    setOpenModal(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const handleCloseSuccess = () => {
+    setOpenSuccessModal(false);
   };
-  const handleOpen = () => {
-    setOpenModal(true);
-  };
+
   const router = useRouter();
 
   async function handleSubmit() {
@@ -30,6 +31,13 @@ function RegisterForm(props) {
     };
 
     const res = await registerUser(userCredentials);
+
+    if (res.status == 200) {
+      setModalMessage("Usuário Cadastrado com sucesso!");
+      setOpenSuccessModal(true);
+    } else {
+      setModalMessage("Falha ao cadastrar usuário!");
+    }
   }
 
   const options = ["usuario", "admin"];
@@ -131,6 +139,16 @@ function RegisterForm(props) {
             </dialog>
           </div>
         </div>
+      </div>
+      <div>
+        <SuccessModal
+          show={openSuccessModal}
+          hideSuccessModal={() => {
+            handleCloseSuccess();
+            router.push("/login");
+          }}
+          message={modalMessage}
+        ></SuccessModal>
       </div>
     </>
   );
