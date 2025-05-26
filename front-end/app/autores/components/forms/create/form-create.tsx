@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { criarAutor } from "../../../../hooks/useAuthors/index";
 import { CreateButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import { Author } from "../../../../types/tipoAutor";
 import SuccessModal from "../../../../components/modals/successModal";
+import { criarNovoAutor } from "../../../../api/routes/autores";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
@@ -49,7 +49,7 @@ function CreateForm(props) {
       nacionality: nacionality.value,
     };
 
-    if (validated) criarAutor(newAuthor, token);
+    if (validated) criarNovoAutor(newAuthor, token);
     setOpenModal(false);
     setOpenSuccessModal(true);
     refetch();

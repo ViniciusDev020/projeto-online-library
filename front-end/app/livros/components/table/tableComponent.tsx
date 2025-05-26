@@ -12,8 +12,6 @@ import { LoadingComponent } from "../../../components/loading/LoadingComponent";
 import { Book } from "../../../types/tipoLivro";
 import PaginationComponent from "../../../components/pagination/PaginationComponent";
 import Cookies from "js-cookie";
-import { Button } from "react-bootstrap";
-import { FaFilter } from "react-icons/fa";
 import SuccessModal from "../../../components/modals/successModal";
 
 export const TableComponent = (props) => {
@@ -21,6 +19,7 @@ export const TableComponent = (props) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const { data, refetch, isLoading } = useFetchBooks(searchParams, {
     limit: limit,
     page: page,
@@ -30,8 +29,17 @@ export const TableComponent = (props) => {
 
   const deleteBook = async (id?: string) => {
     if (id) {
-      await deletarLivro(id, token);
-      setOpenSuccessModal(true);
+      const res = await deletarLivro(id, token);
+
+      if (res.status == 401) {
+        setModalMessage("Não foi possível deletar o livro!");
+        setOpenSuccessModal(true);
+      }
+      if (res.status == 200) {
+        setModalMessage("O livro foi deletado com sucesso!");
+        setOpenSuccessModal(true);
+      }
+
       refetch();
     }
   };
@@ -43,8 +51,6 @@ export const TableComponent = (props) => {
   const handleCloseSuccess = () => {
     setOpenSuccessModal(false);
   };
-
-  const { className } = props;
 
   const dataToMap: Book[] = data?.items == null ? [] : data.items;
 
@@ -136,7 +142,7 @@ export const TableComponent = (props) => {
           hideSuccessModal={() => {
             handleCloseSuccess();
           }}
-          message="O livro foi deletado com sucesso!"
+          message={modalMessage}
         ></SuccessModal>
       </div>
       <PaginationComponent

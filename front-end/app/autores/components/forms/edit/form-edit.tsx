@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { editarLivro } from "../../../../api/routes/livros";
 import { EditButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
-import { BookUpdate } from "../../../../types/tipoLivro";
 import SuccessModal from "../../../../components/modals/successModal";
 import { Author } from "../../../../types/tipoAutor";
 import { editarAutor } from "../../../../api/routes/autores";
@@ -28,11 +26,18 @@ function EditForm(props) {
 
   function handleSubmit() {
     const name = document.getElementById("name") as HTMLInputElement;
+    const nacionality = document.getElementById(
+      "nacionality"
+    ) as HTMLInputElement;
+    const age = document.getElementById("age") as HTMLInputElement;
+
     const token = Cookies.get("token");
 
     const newAuthor: Author = {
       id: id,
       name: name.value,
+      nacionality: nacionality.value,
+      age: parseInt(age.value),
     };
 
     const objectWithoutEmptyProperties = Object.fromEntries(
@@ -53,13 +58,39 @@ function EditForm(props) {
         contentClassName={className.modals}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Editar Livro</Modal.Title>
+          <Modal.Title>Editar Autor</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" placeholder="" name="name" id="name" />
+              <Form.Control
+                type="text"
+                placeholder=""
+                name="name"
+                id="name"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Nacionalidade</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder=""
+                name="nacionality"
+                id="nacionalitys"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Idade</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder=""
+                name="age"
+                id="age"
+                required
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -75,7 +106,7 @@ function EditForm(props) {
               refetch();
             }}
           >
-            Editar Livro
+            Editar Autor
           </Button>
         </Modal.Footer>
       </Modal>

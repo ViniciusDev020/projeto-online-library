@@ -12,7 +12,7 @@ export default function SuccessModal(props) {
       contentClassName="text-center"
       className="bg-dark"
     >
-      <Modal.Header closeButton>Sucesso!</Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <Modal.Body>{...message}</Modal.Body>
     </Modal>
   );

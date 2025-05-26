@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { editBooks } from "../../../../hooks/useBooks/index";
 import { EditButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import { BookUpdate } from "../../../../types/tipoLivro";
 import SuccessModal from "../../../../components/modals/successModal";
+import { editarLivro } from "../../../../api/routes/livros";
 
 function EditForm(props) {
   const { id, className } = props;
@@ -39,8 +39,9 @@ function EditForm(props) {
       Object.entries(newBook).filter(([p, v]) => v != "")
     );
 
-    editBooks(objectWithoutEmptyProperties, token);
+    editarLivro(objectWithoutEmptyProperties, token);
     handleClose();
+
     setOpenSuccessModal(true);
     refetch();
   }

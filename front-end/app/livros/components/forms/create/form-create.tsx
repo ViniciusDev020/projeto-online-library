@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { criarLivro } from "../../../../hooks/useBooks";
 import { BookCreate } from "../../../../types/tipoLivro";
 import { CreateButton } from "../../../../components/buttons/buttons";
 import Cookies from "js-cookie";
 import useFetchAuthors from "../../../../hooks/useAuthors/fetch-authors";
 import SuccessModal from "../../../../components/modals/successModal";
 import { Author } from "../../../../types/tipoAutor";
+import { criarNovoLivro } from "../../../../api/routes/livros";
 
 function CreateForm(props) {
   const [openModal, setOpenModal] = useState(false);
@@ -55,7 +55,7 @@ function CreateForm(props) {
       authorId: author.selectedOptions[0].value,
     };
 
-    if (validated) criarLivro(newBook, token);
+    if (validated) criarNovoLivro(newBook, token);
     handleClose();
     setOpenSuccessModal(true);
     refetch();

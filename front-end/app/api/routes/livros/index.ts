@@ -35,6 +35,8 @@ export async function deletarLivro(id: string, token?: string) {
       Authorization: "Bearer " + token,
     },
   });
+
+  return req;
 }
 
 export async function editarLivro(book: BookUpdate, token?: string) {
@@ -46,6 +48,8 @@ export async function editarLivro(book: BookUpdate, token?: string) {
       "Content-Type": "application/json",
     },
   });
+
+  return req;
 }
 
 export async function criarNovoLivro(book: BookCreate, token?: string) {
@@ -57,6 +61,8 @@ export async function criarNovoLivro(book: BookCreate, token?: string) {
       "Content-Type": "application/json",
     },
   });
+
+  return req;
 }
 
 export async function login(email: string, password: string) {
@@ -69,7 +75,7 @@ export async function login(email: string, password: string) {
   });
 
   const res = await req.json();
-  console.log("RESPONSE MESSAGE", res.message);
+
   return res;
 }
 export default listarLivros;
