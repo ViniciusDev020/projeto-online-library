@@ -10,7 +10,7 @@ async function autenticacao(
 ) {
   const token = req.headers.authorization?.split(" ")[1];
   const decoded: any = jwt.decode(token);
-  const role = await verifyRole(decoded.userId);
+  const role = await verifyRole(decoded?.userId);
   const isValidRole = grantRole.filter((r) => r == role);
 
   if (!token || isValidRole.length == 0) {
