@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import RegisterForm from "../livros/components/forms/register/form-register";
+import RegisterForm from "./components/forms/register/form-register";
 
 const Register = () => {
   <link

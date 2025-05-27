@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { registerUser } from "../../../../api/routes/livros";
+import { registerUser } from "../../../../api/routes/login";
 import { useRouter } from "next/navigation";
 import { userType } from "../../../../types/tipoUser";
 import SuccessModal from "../../../../components/modals/successModal";
