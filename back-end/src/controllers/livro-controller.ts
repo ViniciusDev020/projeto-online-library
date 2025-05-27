@@ -49,7 +49,7 @@ export async function deleteBookById(req: Request, res: Response) {
   } catch (error: any) {
     res
       .status(400)
-      .json({ message: `Falha ao listar autores: ${error.message}` });
+      .json({ message: `Falha ao deletar livro: ${error.message}` });
   }
 }
 
