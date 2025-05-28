@@ -30,7 +30,10 @@ export async function listAllBooks(req: Request, res: Response) {
 
 export async function listBookById(req: Request, res: Response) {
   try {
-    const response = await listBookByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+
+    const response = await listBookByIdService(id);
 
     return res.json(response);
   } catch (error: any) {
@@ -42,7 +45,9 @@ export async function listBookById(req: Request, res: Response) {
 
 export async function deleteBookById(req: Request, res: Response) {
   try {
-    const response = await deleteBookByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+    const response = await deleteBookByIdService(id);
     response;
 
     res.status(200).json({ message: "Livro deletado com sucesso!" });
@@ -55,7 +60,8 @@ export async function deleteBookById(req: Request, res: Response) {
 
 export async function createBook(req: any, res: Response) {
   try {
-    const response = await createBookService(req, req);
+    const livro = req.body;
+    const response = await createBookService(livro);
     response;
 
     res.status(201).json({ message: "Livro criado com sucesso!", response });
@@ -66,7 +72,11 @@ export async function createBook(req: any, res: Response) {
 
 export async function updateBookById(req: Request, res: Response) {
   try {
-    const response = await updateBookByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+    const livro = req.body;
+
+    const response = await updateBookByIdService(id, livro);
     response;
 
     res.status(200).json({ message: "Livro editado com sucesso!" });

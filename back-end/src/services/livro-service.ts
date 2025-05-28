@@ -4,48 +4,38 @@ import booksRefinedList, {
   bookById,
   deleteBookById,
 } from "../repository/livros.repository.ts";
-import type { Request, Response } from "express";
 
 export async function listAllBooksService(searchQuery: any, pagination: any) {
-  const response = await booksRefinedList(searchQuery, pagination);
+  const allBooks = await booksRefinedList(searchQuery, pagination);
 
-  return response;
+  return allBooks;
 }
 
-export async function listBookByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id = params.id;
-  const response = await bookById(id);
+export async function listBookByIdService(id: string) {
+  const book = await bookById(id);
 
-  return response;
+  return book;
 }
 
-export async function deleteBookByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id: string = params.id;
+export async function deleteBookByIdService(id: string) {
   const response = await deleteBookById(id);
 
   return response;
 }
 
-export async function createBookService(req: Request, res: Response) {
-  const livro = req.body;
+export async function createBookService(livro: any) {
+  const newBook = await createBook(livro);
 
-  const response = await createBook(livro);
-
-  return response;
+  return newBook;
 }
 
-export async function updateBookByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id = params.id;
-  const livro = req.body;
-  const livroExistente = await bookById(id);
+export async function updateBookByIdService(id: string, livro: any) {
+  const existingBook = await bookById(id);
 
-  if (livroExistente) {
-    const copia = Object.assign(livroExistente, livro);
+  if (existingBook) {
+    const bookCopy = Object.assign(existingBook, livro);
 
-    const response = await updateBookById(copia, id);
+    const response = await updateBookById(bookCopy, id);
 
     response;
   }

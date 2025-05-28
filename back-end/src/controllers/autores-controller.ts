@@ -31,7 +31,10 @@ export async function listAllAuthors(req: Request, res: Response) {
 
 export async function listAuthorById(req: Request, res: Response) {
   try {
-    const response = await listAuthorByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+
+    const response = await listAuthorByIdService(id);
 
     return res.json(response);
   } catch (error: any) {
@@ -43,7 +46,9 @@ export async function listAuthorById(req: Request, res: Response) {
 
 export async function deleteAuthorById(req: Request, res: Response) {
   try {
-    const response = await deleteAuthorByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+    const response = await deleteAuthorByIdService(id);
     response;
 
     res.status(200).json({ message: "Autor deletado com sucesso!" });
@@ -56,7 +61,8 @@ export async function deleteAuthorById(req: Request, res: Response) {
 
 export async function createAuthor(req: any, res: Response) {
   try {
-    const response = await createAuthorService(req, req);
+    const author = req.body;
+    const response = await createAuthorService(author);
     response;
 
     res.status(201).json({ message: "Autor criado com sucesso!", response });
@@ -67,7 +73,10 @@ export async function createAuthor(req: any, res: Response) {
 
 export async function updateAuthorById(req: Request, res: Response) {
   try {
-    const response = await updateAuthorByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+    const author = req.body;
+    const response = await updateAuthorByIdService(id, author);
     response;
 
     res.status(200).json({ message: "Autor editado com sucesso!", response });

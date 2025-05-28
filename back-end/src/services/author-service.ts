@@ -5,7 +5,6 @@ import {
   authorsRefinedList,
   deleteAuthorById,
 } from "../repository/authors-repository.ts";
-import type { Request, Response } from "express";
 
 export async function listAllAuthorsService(searchQuery: any, pagination: any) {
   const response = await authorsRefinedList(searchQuery, pagination);
@@ -13,34 +12,25 @@ export async function listAllAuthorsService(searchQuery: any, pagination: any) {
   return response;
 }
 
-export async function listAuthorByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id = params.id;
+export async function listAuthorByIdService(id: string) {
   const response = await authorById(id);
 
   return response;
 }
 
-export async function deleteAuthorByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id: string = params.id;
+export async function deleteAuthorByIdService(id: string) {
   const response = await deleteAuthorById(id);
 
   return response;
 }
 
-export async function createAuthorService(req: Request, res: Response) {
-  const author = req.body;
-
+export async function createAuthorService(author: any) {
   const response = await createAuthor(author);
 
   return response;
 }
 
-export async function updateAuthorByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id = params.id;
-  const author = req.body;
+export async function updateAuthorByIdService(id: string, author: any) {
   const existingAuthor = await authorById(id);
 
   if (existingAuthor) {

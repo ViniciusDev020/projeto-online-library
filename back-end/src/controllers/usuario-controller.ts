@@ -21,7 +21,9 @@ export async function listAllUsers(req: Request, res: Response) {
 
 export async function listUserById(req: Request, res: Response) {
   try {
-    const response = await listUserByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+    const response = await listUserByIdService(id);
 
     return res.json(response);
   } catch (error: any) {
@@ -33,7 +35,9 @@ export async function listUserById(req: Request, res: Response) {
 
 export async function deleteUserById(req: Request, res: Response) {
   try {
-    const response = await deleteUserByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+    const response = await deleteUserByIdService(id);
     response;
 
     res.status(200).json({ message: "Usuário deletado com sucesso!" });
@@ -46,7 +50,8 @@ export async function deleteUserById(req: Request, res: Response) {
 
 export async function createUser(req: any, res: Response) {
   try {
-    const response = await createUserService(req, req);
+    const user = req.body;
+    const response = await createUserService(user);
     response;
 
     res.status(201).json({ message: `Usuário criado com sucesso! `, response });
@@ -59,7 +64,10 @@ export async function createUser(req: any, res: Response) {
 
 export async function updateUserById(req: Request, res: Response) {
   try {
-    const response = await updateUserByIdService(req, res);
+    const params = req.params;
+    const id = params.id;
+    const user = req.body;
+    const response = await updateUserByIdService(id, user);
     response;
 
     res.status(200).json({ message: "Usuário editado com sucesso!" });

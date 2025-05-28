@@ -14,27 +14,20 @@ export async function listAllUsersService(req: Request, res: Response) {
   return response;
 }
 
-export async function listUserByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id = params.id;
-
+export async function listUserByIdService(id: string) {
   const response = await userById(id);
 
   return response;
 }
 
-export async function deleteUserByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id: string = params.id;
-
+export async function deleteUserByIdService(id: string) {
   const response = await deleteUserById(id);
 
   return response;
 }
 
-export async function createUserService(req: Request, res: Response) {
-  const user = req.body;
-  const userMail = await userByEmail(req.body.email);
+export async function createUserService(user: any) {
+  const userMail = await userByEmail(user.email);
 
   if (!userMail) {
     const response = await createUser(user);
@@ -45,10 +38,7 @@ export async function createUserService(req: Request, res: Response) {
   }
 }
 
-export async function updateUserByIdService(req: Request, res: Response) {
-  const params = req.params;
-  const id = params.id;
-  const user = req.body;
+export async function updateUserByIdService(id: string, user: any) {
   const existingUser = await userById(id);
 
   if (existingUser) {
