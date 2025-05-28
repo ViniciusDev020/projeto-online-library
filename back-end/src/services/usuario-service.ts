@@ -6,9 +6,8 @@ import {
   deleteUserById,
   userByEmail,
 } from "../repository/usuarios.repository.ts";
-import type { Request, Response } from "express";
 
-export async function listAllUsersService(req: Request, res: Response) {
+export async function listAllUsersService() {
   const response = await usersRefinedList();
 
   return response;

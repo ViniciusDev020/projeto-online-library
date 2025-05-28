@@ -9,7 +9,7 @@ import type { Request, Response } from "express";
 
 export async function listAllUsers(req: Request, res: Response) {
   try {
-    const response = await listAllUsersService(req, res);
+    const response = await listAllUsersService();
 
     return res.json(response);
   } catch (error: any) {
