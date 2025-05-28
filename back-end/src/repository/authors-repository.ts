@@ -1,15 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 import type { pagination } from "../types/pagination";
+import type { Author } from "../types/author";
 
 const prisma = new PrismaClient();
-
-export type Author = {
-  id: string;
-  name: string;
-  age: string;
-  nacionality: string;
-};
 
 export async function authorsRefinedList(
   searchQuery: string,

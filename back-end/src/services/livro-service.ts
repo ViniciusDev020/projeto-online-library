@@ -4,6 +4,7 @@ import booksRefinedList, {
   bookById,
   deleteBookById,
 } from "../repository/livros.repository.ts";
+import type { Livro } from "../types/livro.ts";
 
 export async function listAllBooksService(searchQuery: any, pagination: any) {
   const allBooks = await booksRefinedList(searchQuery, pagination);
@@ -23,13 +24,13 @@ export async function deleteBookByIdService(id: string) {
   return response;
 }
 
-export async function createBookService(livro: any) {
+export async function createBookService(livro: Livro) {
   const newBook = await createBook(livro);
 
   return newBook;
 }
 
-export async function updateBookByIdService(id: string, livro: any) {
+export async function updateBookByIdService(id: string, livro: Livro) {
   const existingBook = await bookById(id);
 
   if (existingBook) {

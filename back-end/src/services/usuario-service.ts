@@ -6,6 +6,7 @@ import {
   deleteUserById,
   userByEmail,
 } from "../repository/usuarios.repository.ts";
+import type { User } from "../types/user.ts";
 
 export async function listAllUsersService() {
   const response = await usersRefinedList();
@@ -25,7 +26,7 @@ export async function deleteUserByIdService(id: string) {
   return response;
 }
 
-export async function createUserService(user: any) {
+export async function createUserService(user: User) {
   const userMail = await userByEmail(user.email);
 
   if (!userMail) {
@@ -37,7 +38,7 @@ export async function createUserService(user: any) {
   }
 }
 
-export async function updateUserByIdService(id: string, user: any) {
+export async function updateUserByIdService(id: string, user: User) {
   const existingUser = await userById(id);
 
   if (existingUser) {

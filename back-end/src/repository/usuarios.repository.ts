@@ -1,20 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
+import type { User } from "../types/user";
 
 const prisma = new PrismaClient();
 
 export async function usersRefinedList() {
   return prisma.user.findMany();
 }
-
-type user = {
-  id?: string;
-  name: string;
-  email: string;
-  password: string;
-  profile: string;
-};
 
 export async function userById(idUser: string) {
   return prisma.user.findUnique({
@@ -44,7 +37,7 @@ export async function deleteUserById(idUser: string) {
   });
 }
 
-export async function createUser(user: user) {
+export async function createUser(user: User) {
   const saltRounds = 10;
 
   const hash = await bcrypt.hash(user.password, saltRounds);
@@ -60,7 +53,7 @@ export async function createUser(user: user) {
   });
 }
 
-export async function updateUserById(user: user, idUser: string) {
+export async function updateUserById(user: User, idUser: string) {
   return prisma.user.update({
     where: { id: idUser },
     data: {
